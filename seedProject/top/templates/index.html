@@ -10,13 +10,23 @@
     <title>Seed - top</title>
 </head>
 <body>
-    <header>
-        <strong class="appname">Seed</strong>
-        <a href="">ログイン</a>
-        <a href="">新規登録</a>
-    </header>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                    <span class="fs-4">Seed</span>
+                </a>
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">ログイン</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'acount:signup' %}">新規登録</a>
+                    </li>
+                </ul>
+        </header>
+    </div>
     <main>
-        <div>
+        <div class="container">
             <h1>Seed</h1>
             <img src="" alt="アプリアイコン">
             <p>持続可能な社会の種をまこう</p>
