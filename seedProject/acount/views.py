@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView
+from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm
 # Create your views here.
@@ -37,5 +38,13 @@ class CompanySignupView(CreateView):
 class SignupSuccessView(TemplateView):
     template_name = 'signup_success.html'
 
-class LoginView(TemplateView):
+class UserLoginView(LoginView):
     template_name = 'login.html'
+    
+    def get_success_url(self):
+        if self.request.user.is_general:
+            return reverse_lazy('seed:mypage')
+        elif self.request.user.is_active:
+            return reverse_lazy('seed:company_mypage')
+        else:
+            return reverse_lazy('acounts:login')
