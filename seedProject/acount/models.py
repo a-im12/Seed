@@ -2,4 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
-    pass
+    is_general = models.BooleanField(null=True ,default=True)
+    is_active = models.BooleanField(null=True ,default=False)
+    

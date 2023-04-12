@@ -16,6 +16,19 @@ class SignupView(CreateView):
         user = form.save()
         return super().form_valid(form)
 
+class CompanySignupView(CreateView):
+    
+    form_class=CustomUserCreationForm
+    
+    template_name='companysignup.html'
+    
+    success_url = reverse_lazy('acounts:signup_success')
+    
+    def form_valid(self, form):
+        user = form.save()
+        user.save()
+        return super().form_valid(form)
+
 class SignupSuccessView(TemplateView):
     template_name = 'signup_success.html'
 
