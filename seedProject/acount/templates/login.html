@@ -1,21 +1,31 @@
 {% extends 'acountbase.html' %}
 {% block title %}Seed - Login{% endblock %}
 {% block content %}
-    <div class="text-center">
-
-        <form method="post">
-            {% csrf_token %}
-
-            <h1>ログイン</h1>
-            <div class="form-floating">
-                <input type="text" class="form-control" id="floatingInput" name="username" maxlength="150" placeholder="user_name">
-                <label for="floatingInput">ユーザ名</label>
-            </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">パスワード</label>
-            </div>
-            <button type="submit" class="btn btn-success">ログイン</button>
-        </form>
+    <div class="container">
+        <div class="text-center" style="margin-top:100px">
+            <form method="post">
+                {% csrf_token %}
+                <img class="mb-4" src="{% static 'assets/img/top/150x150.png' %}">
+                <h1 class="h3 mb-3 fw-normal">ログイン</h1>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="center-block">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floatingInput" name="username" maxlength="150" placeholder="user_name">
+                            <label for="floatingInput">ユーザ名</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                            <label for="floatingPassword">パスワード</label>
+                        </div>
+                    
+                        <br>
+                        <a class="link-success mb-3 lh-lg" href="#">パスワードをお忘れですか？</a>
+                        <br>
+                        <br>
+                        <button type="submit" class="btn btn-success w-100">ログイン</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 {% endblock %}
