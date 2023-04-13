@@ -1,5 +1,21 @@
 {% extends 'acountbase.html' %}
-{% block title %}{% endblock %}
+{% block title %}Seed - Login{% endblock %}
 {% block content %}
-    <h1>ログイン</h1>
+    <div class="text-center">
+
+        <form method="post">
+            {% csrf_token %}
+
+            <h1>ログイン</h1>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" name="username" maxlength="150" placeholder="user_name">
+                <label for="floatingInput">ユーザ名</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">パスワード</label>
+            </div>
+            <button type="submit" class="btn btn-success">ログイン</button>
+        </form>
+    </div>
 {% endblock %}
