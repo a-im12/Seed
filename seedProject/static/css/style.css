@@ -1,0 +1,8 @@
+.mypage::-webkit-scrollbar {
+    display:none;
+}
+
+.nav-pills .my-nav .nav-link:hover {
+    background-color: #313135;
+    color: #fff;
+}
