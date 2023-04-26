@@ -6,7 +6,7 @@
         <div class="text-center" style="margin-top:100px">
             <form method="post">
                 {% csrf_token %}
-                <img class="mb-4" src="{% static 'assets/img/top/150x150.png' %}">
+                <img class="mb-4" src="{% static 'assets/img/top/icon.png' %}" height="150px">
                 <h1 class="h3 mb-3 fw-normal">ログイン</h1>
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="center-block">
@@ -15,7 +15,7 @@
                             <label for="floatingInput">ユーザ名</label>
                         </div>
                         <div class="form-floating">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
                             <label for="floatingPassword">パスワード</label>
                         </div>
                     
@@ -28,5 +28,14 @@
                 </div>
             </form>
         </div>
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for error in form.errors %}
+                        <li>{{error}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

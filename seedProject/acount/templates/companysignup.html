@@ -1,5 +1,42 @@
 {% extends 'acountbase.html' %}
 {% block title %}Seed - CompanySignUp{% endblock %}
 {% block content %}
-    <h1>企業新規登録</h1>
+<div class="center-block" style="margin-top:100px;">
+    <h1 class="h3 mb-3 fw-normal text-center">企業新規登録</h1>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="center-block">
+                    {% for field in form %}
+                        <div class="row">
+                            <div class="col-6">
+                                {{field.label_tag}}
+                            </div>
+                            <div class="col-2">
+                                {{field}}
+                            </div>
+                        </div>
+                        {% if field.help_text %}
+                        <small style="color:gray;">{{field.help_text}}</small>
+                        <br>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <smaill style="color:red;">{{error}}</smaill>
+                        {% endfor %}
+                        <br>
+                    {% endfor %}
+                    <br>
+                    <p style="color:red">企業アカウントは、運営の審査後に利用できるようになります。</p>
+                    <input class="btn btn-success w-100" type="submit" value="新規登録">
+                </div>
+            </form>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+</div>
 {% endblock %}

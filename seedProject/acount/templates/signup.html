@@ -1,22 +1,43 @@
 {% extends 'acountbase.html' %}
+{% load static %}
 {% block title %}Seed - 新規登録{% endblock %}
 {% block content %}
-    <h1>新規登録</h1>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-            <p>
-                {{field.label_tag}}<br>
-                {{field}}
-                <br>
-                {% if field.help_text %}
-                    <small style="color:gray;">{{field.help_text}}</small>
-                {% endif %}
-                {% for error in field.errors %}
-                    <smaill style="color:red;">{{error}}</smaill>
-                {% endfor %}
-            </p>
-        {% endfor %}
-        <button type="submit">登録</button>
-    </form>
+<div class="center-block" style="margin-top:100px;">
+    <h1 class="h3 mb-3 fw-normal text-center">新規登録</h1>
+    <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="center-block">
+                    {% for field in form %}
+                        <div class="row">
+                            <div class="col-6">
+                                {{field.label_tag}}
+                            </div>
+                            <div class="col-2">
+                                {{field}}
+                            </div>
+                        </div>
+                        {% if field.help_text %}
+                        <small style="color:gray;">{{field.help_text}}</small>
+                        <br>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <smaill style="color:red;">{{error}}</smaill>
+                        {% endfor %}
+                        <br>
+                    {% endfor %}
+                    <br>
+                    <input class="btn btn-success w-100" type="submit" value="新規登録">
+                </div>
+            </form>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+</div>
 {% endblock %}

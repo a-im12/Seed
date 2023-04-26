@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm
 # Create your views here.
@@ -11,7 +11,7 @@ class SignupView(CreateView):
     
     template_name='signup.html'
     
-    success_url = reverse_lazy('acounts:signup_success')
+    success_url = reverse_lazy('acount:signup_success')
     
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -26,7 +26,7 @@ class CompanySignupView(CreateView):
     
     template_name='companysignup.html'
     
-    success_url = reverse_lazy('acounts:signup_success')
+    success_url = reverse_lazy('acount:signup_success')
     
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -47,4 +47,7 @@ class UserLoginView(LoginView):
         elif self.request.user.is_active:
             return reverse_lazy('seed:company_mypage')
         else:
-            return reverse_lazy('acounts:login')
+            return reverse_lazy('acount:login')
+
+class LogoutView(LogoutView):
+    template_name = 'logout.html'

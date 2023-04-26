@@ -73,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'seedProject.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -126,5 +125,8 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 AUTH_USER_MODEL = 'acount.CustomUser'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

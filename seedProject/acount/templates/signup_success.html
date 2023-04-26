@@ -1,8 +1,11 @@
 {% extends 'acountbase.html' %}
 {% block title %}Seed - 登録完了{% endblock %}
 {% block content %}
+<div class="text-center">
     <h1>登録完了</h1>
     <br>
     <p>Seedへの登録が完了しました。</p>
-    <a href="{% url 'account:login' %}">ログイン</a>
+    <br>
+    <a class="btn btn-success" href="{% url 'acount:login' %}">ログイン</a>
+</div>
 {% endblock %}

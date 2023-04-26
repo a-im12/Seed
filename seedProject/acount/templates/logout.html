@@ -1,0 +1,10 @@
+{% extends 'acountbase.html' %}
+{% block title %}Seed - ログアウト{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1>ログアウト</h1>
+    <br>
+    <p>ログアウトしました。</p>
+    <br>
+    <a class="btn btn-success" href="{% url 'top:index' %}">TOPに戻る</a>
+{% endblock %}
