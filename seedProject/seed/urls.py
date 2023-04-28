@@ -6,4 +6,8 @@ app_name = 'seed'
 urlpatterns = [
     path('mypage/', views.MypageView.as_view(), name='mypage'),
     path('company_mypage/', views.CompanyMypageView.as_view(), name='company_mypage'),
+    path('food_rescue/', views.FoodRescueView.as_view(), name='food_rescue'),
+    path('community/', views.CommunityView.as_view(), name='community'),
+    path('mission/', views.MissionView.as_view(), name='mission'),
+    path('gather/', views.GatherView.as_view(), name='gather'),
 ]

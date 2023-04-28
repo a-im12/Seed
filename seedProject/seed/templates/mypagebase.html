@@ -27,27 +27,27 @@
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
                         <li class="nav-item my-nav">
-                            <a href="#" class="nav-link text-white" aria-current="page">
+                            <a href="{% url 'seed:mypage' %}" class="nav-link text-white" aria-current="page">
                                 Home
                             </a>
                         </li>
                         <li class="nav-item my-nav">
-                            <a href="#" class="nav-link text-white">
+                            <a href="{% url 'seed:food_rescue' %}" class="nav-link text-white">
                                 Food rescue
                             </a>
                         </li>
                         <li class="nav-item my-nav">
-                            <a href="#" class="nav-link text-white">
+                            <a href="{% url 'seed:mission' %}" class="nav-link text-white">
                                 Mission
                             </a>
                         </li>
                         <li class="nav-item my-nav">
-                            <a href="#" class="nav-link text-white">
+                            <a href="{% url 'seed:gather' %}" class="nav-link text-white">
                                 Gather
                             </a>
                         </li>
                         <li class="nav-item my-nav">
-                            <a href="#" class="nav-link text-white">
+                            <a href="{% url 'seed:community' %}" class="nav-link text-white">
                                 Community
                             </a>
                         </li>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
             </div>
-            <div style="width:70%; margin-left: 6%;">
+            <div style="width:70%; margin-left: 7%;">
                 {% block content %}
                 {% endblock %}
             </div>

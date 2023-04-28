@@ -7,3 +7,15 @@ class MypageView(TemplateView):
 
 class CompanyMypageView(TemplateView):
     template_name = 'companymypage.html'
+
+class FoodRescueView(TemplateView):
+    template_name = 'foodrescue.html'
+
+class CommunityView(TemplateView):
+    template_name = 'community.html'
+
+class MissionView(TemplateView):
+    template_name = 'mission.html'
+
+class GatherView(TemplateView):
+    template_name = 'gather.html'
