@@ -1,0 +1,25 @@
+{% extends 'mypagebase.html' %}
+{% load static %}
+{% block title %}Seed - Gather{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1>自分の投稿したもの</h1>
+    <div class="row">
+        {% for gather in mygather_list %}
+        <div class="col-3">
+            <div class="card" style="width: 100%;">
+                <img src="{% static 'assets/img/mypage/damy.png' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{gather.title}}</h5>
+                    <p class="card-text">
+                        {{gather.user_id.username}}
+                    </p>
+                    <a href="" class="btn btn-warning" style="color:white;">詳細</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

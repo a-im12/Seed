@@ -3,4 +3,13 @@
 {% block title %}Seed - Mission{% endblock %}
 {% block content %}
 <h1>mission</h1>
+{% if mission_detail %}
+    {{mission_detail.mission.rank}}
+    {{mission_detail.mission.mission}}
+{% else %}
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-success" value="おみくじを引く">
+</form>
+{% endif %}
 {% endblock %}

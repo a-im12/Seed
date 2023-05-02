@@ -1,0 +1,22 @@
+{% extends 'mypagebase.html' %}
+{% load static %}
+{% block title %}Seed - Gather{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1>gather 投稿</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            {% for field in form %}
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+            {{ field }}
+            <br>
+            <br>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-warning" style="color:white">投稿</button>
+</div>
+</form>
+
+{% endblock %}

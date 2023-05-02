@@ -10,4 +10,7 @@ urlpatterns = [
     path('community/', views.CommunityView.as_view(), name='community'),
     path('mission/', views.MissionView.as_view(), name='mission'),
     path('gather/', views.GatherView.as_view(), name='gather'),
+    path('gatherpost/', views.CreateGatherView.as_view(), name='gatherpost'),
+    path('gatherdone/', views.GatherDoneView.as_view(), name='gatherdone'),
+    path('mygather/', views.MyGatherView.as_view(), name='mygather'),
 ]

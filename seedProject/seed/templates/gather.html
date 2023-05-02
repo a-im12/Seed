@@ -1,6 +1,32 @@
 {% extends 'mypagebase.html' %}
 {% load static %}
-{% block title %}Seed - Mission{% endblock %}
+{% block title %}Seed - Gather{% endblock %}
 {% block content %}
-<h1>gather</h1>
+<div class="text-center">
+    <h1>gather</h1>
+    <a href="{% url 'seed:gatherpost' %}">投稿</a>
+    <a href="{% url 'seed:mygather' %}">自分の投稿</a>
+
+    <div class="container">
+        <div class="row">
+            {% for gather in gather_list %}
+            <div class="col-3">
+                <div class="card" style="width: 100%;">
+                    <img src="{% static 'assets/img/mypage/damy.png' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{gather.title}}</h5>
+                        <p class="card-text">
+                            {{gather.user_id.username}}
+                        </p>
+                        <p class="card-text" style="color:gray; font-size:smaller;">
+                            <span class="text-start">投稿日 : </span><span class="text-end">{{gather.create_at|date:"Y/m/d"}}</span>
+                        </p>
+                        <a href="" class="btn btn-warning" style="color:white;">詳細</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
