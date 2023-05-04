@@ -2,14 +2,18 @@
 {% load static %}
 {% block title %}Seed - Mission{% endblock %}
 {% block content %}
-<h1>mission</h1>
-{% if mission_detail %}
-    {{mission_detail.mission.rank}}
-    {{mission_detail.mission.mission}}
-{% else %}
-<form method="POST">
-    {% csrf_token %}
-    <input type="submit" class="btn btn-success" value="おみくじを引く">
-</form>
-{% endif %}
+<div class="text-center">
+    <h1>mission</h1>
+    <hr>
+    {% if data %}
+    <h1>{{data.mission.rank}}</h1>
+
+    <p>【今日のミッション】</p>
+    <p>{{data.mission.mission}}</p>
+    {% else %}
+    <h3>今日のミッションはまだ与えられていません</h3>
+    <p>一日一回、くじを引いてその日の運勢とミッションを獲得しよう!</p>
+    <button type="button" onclick="location.href='{% url 'seed:draw' %}'" class="btn btn-success">今日のミッションを取得</button>
+    {% endif %}
+</div>
 {% endblock %}

@@ -13,4 +13,5 @@ urlpatterns = [
     path('gatherpost/', views.CreateGatherView.as_view(), name='gatherpost'),
     path('gatherdone/', views.GatherDoneView.as_view(), name='gatherdone'),
     path('mygather/', views.MyGatherView.as_view(), name='mygather'),
+    path('draw/', views.draw, name='draw'),
 ]

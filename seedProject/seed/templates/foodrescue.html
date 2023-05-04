@@ -2,5 +2,12 @@
 {% load static %}
 {% block title %}Seed - Food rescue{% endblock %}
 {% block content %}
-<h1>foodrescue</h1>
+<div class="text-center">
+    <h1>foodrescue</h1>
+    <hr>
+    {% if data %}
+    <h1></h1>
+    {% else %}
+    <h3>投稿されている商品はありません。</h3>
+</div>
 {% endblock %}

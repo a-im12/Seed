@@ -5,6 +5,7 @@
 {% block content %}
 <div class="text-center">
     <h1>自分の投稿したもの</h1>
+    {% if mygather_list %}
     <div class="row">
         {% for gather in mygather_list %}
         <div class="col-3">
@@ -21,5 +22,8 @@
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <h3>投稿している募集情報はありません</h3>
+    {% endif %}
 </div>
 {% endblock %}

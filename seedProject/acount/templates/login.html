@@ -30,11 +30,7 @@
         </div>
         {% if form.errors %}
             <div class="alert alert-danger" role="alert">
-                <ul>
-                    {% for error in form.errors %}
-                        <li>{{error}}</li>
-                    {% endfor %}
-                </ul>
+                <strong>ユーザ名またはパスワードが違います。</strong>
             </div>
         {% endif %}
     </div>

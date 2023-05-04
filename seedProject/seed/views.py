@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, ListView
 from django.urls import reverse_lazy
@@ -19,43 +20,17 @@ class FoodRescueView(TemplateView):
 class CommunityView(TemplateView):
     template_name = 'community.html'
 
-class MissionView(CreateView):
-    form_class = MissionDetailForm
+class MissionView(TemplateView):
+    mission_detail_model = MissionDetail()
     template_name = 'mission.html'
-    
-    success_url = reverse_lazy('seed:mission')
-    
-    def form_valid(self, form):
-        data = form.save(commit=False)
-        
-        data.user = self.request.user
-        
-        today = datetime.date.today()
-        
-        mission_detail_data = MissionDetail.objects.filter(user=self.request.user).order_by('-draw_time')
-        
-        if mission_detail_data:
-            if mission_detail_data[0].draw_time == today:
-                data.mission = mission_detail_data.mission
-                data.draw_time = mission_detail_data.draw_time
-                data.save()
-                return super().form_valid(form)
-
-        while True:
-            mission_id = random.randint(1, len(Mission.objects.all()))
-            mission_data = Mission.objects.get(id=mission_id)
-            if mission_data:
-                break
-        data.mission = mission_data
-        data.draw_time = today
-        data.save()
-        return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         mission_detail = MissionDetail.objects.filter(user=self.request.user, draw_time=datetime.date.today()).order_by('-draw_time')
         if mission_detail:
-            context['mission_detail'] = mission_detail[0]
+            if mission_detail[0].draw_time == datetime.date.today():
+                context['draw_flg'] = True
+            context['data'] = mission_detail[0]
         return context
 
 class GatherView(ListView):
@@ -89,3 +64,21 @@ class MyGatherView(ListView):
     
     def get_queryset(self):
         return Gather.objects.filter(user_id=self.request.user)
+
+def draw(request):
+    draw_flg = False
+    data = MissionDetail.objects.filter(user=request.user, draw_time=datetime.date.today()).order_by('-draw_time')
+    if data:    
+        if data[0].draw_time == datetime.date.today():
+            draw_flg = True
+            return render(request, 'mission.html', {'data': data, 'draw_flg': draw_flg})
+    
+    mission_detail_model = MissionDetail()
+    
+    mission_detail_model.user = request.user
+    mission_detail_model.mission = Mission.objects.get(id=random.randint(1, len(Mission.objects.all())))
+    mission_detail_model.draw_time = datetime.date.today()
+    
+    mission_detail_model.save()
+    
+    return render(request, 'mission.html', {'data': mission_detail_model, 'draw_flg': draw_flg})

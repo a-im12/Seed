@@ -24,3 +24,4 @@ class MissionDetail(models.Model):
     user = models.ForeignKey(CustomUser, verbose_name="ユーザー", on_delete=models.CASCADE)
     mission = models.ForeignKey(Mission, verbose_name="ミッション", on_delete=models.CASCADE)
     draw_time = models.DateTimeField(verbose_name="抽選日時")
+
