@@ -3,17 +3,27 @@
 {% block title %}Seed - Mission{% endblock %}
 {% block content %}
 <div class="text-center">
-    <h1>mission</h1>
-    <hr>
-    {% if data %}
-    <h1>{{data.mission.rank}}</h1>
+    {% if request.user.is_authenticated %}
+        {% if request.user.is_general %}
+            <h1>mission</h1>
+            <hr>
+            {% if data %}
+                <h1>{{data.mission.rank}}</h1>
 
-    <p>【今日のミッション】</p>
-    <p>{{data.mission.mission}}</p>
+                <p>【今日のミッション】</p>
+                <p>{{data.mission.mission}}</p>
+            {% else %}
+                <h3>今日のミッションはまだ与えられていません</h3>
+                <p>一日一回、くじを引いてその日の運勢とミッションを獲得しよう!</p>
+                <button type="button" onclick="location.href='{% url 'seed:draw' %}'" class="btn btn-success">今日のミッションを取得</button>
+            {% endif %}
+        {% else %}
+            <h1>一般ユーザ専用機能です</h1>
+            <a href="{% url 'seed:mypage' %}" class="btn btn-primary">マイページへ</a>
+        {% endif %}
     {% else %}
-    <h3>今日のミッションはまだ与えられていません</h3>
-    <p>一日一回、くじを引いてその日の運勢とミッションを獲得しよう!</p>
-    <button type="button" onclick="location.href='{% url 'seed:draw' %}'" class="btn btn-success">今日のミッションを取得</button>
+        <h1>ログインしてください</h1>
+        <a href="{% url 'seed:login' %}" class="btn btn-primary">ログイン</a>
     {% endif %}
 </div>
 {% endblock %}

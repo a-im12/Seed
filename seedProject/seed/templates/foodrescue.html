@@ -5,10 +5,25 @@
 <div class="text-center">
     <h1>foodrescue</h1>
     <hr>
-    {% if data %}
-    <h1></h1>
+    <div class="text-end">
+        {% if request.user.is_general %}
+        <a href="" class="btn btn-primary">お気に入り一覧</a>
+        {% else %}
+        <a href="" class="btn btn-primary">商品を投稿する</a>
+    </div>
+    {% endif %}
+    {% if product_list %}
+        {% for product in product_list %}
+        <h1>{{product.name}}</h1>
+            {% if product.image %}
+            <img src="{{product.image.url}}" alt="..." class="img-thumbnail" style="width: 200px; height: 200px;">
+            {% else %}
+            <img src="{% static 'assets/img/mypage/damy.png' %}" alt="..." class="img-thumbnail"
+                style="width: 200px; height: 200px;">
+            {% endif %}
+        {% endfor %}
     {% else %}
-    <h3>投稿されている商品はありません。</h3>
+        <h3>投稿されている商品はありません。</h3>
     {% endif %}
 </div>
 {% endblock %}

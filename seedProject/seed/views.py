@@ -2,8 +2,8 @@ from typing import Any, Dict
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, ListView
 from django.urls import reverse_lazy
-from .models import Gather, MissionDetail, Mission
-from .forms import GatherPostForm, MissionDetailForm
+from .models import Gather, MissionDetail, Mission, Product
+from .forms import GatherPostForm
 
 import datetime
 import random
@@ -14,8 +14,13 @@ class MypageView(TemplateView):
 class CompanyMypageView(TemplateView):
     template_name = 'companymypage.html'
 
-class FoodRescueView(TemplateView):
+class FoodRescueView(ListView):
     template_name = 'foodrescue.html'
+    model = Product
+    context_object_name = 'product_list'
+    
+    def get_queryset(self):
+        return Product.objects.order_by('-create_at')
 
 class CommunityView(TemplateView):
     template_name = 'community.html'
@@ -25,13 +30,16 @@ class MissionView(TemplateView):
     template_name = 'mission.html'
     
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        mission_detail = MissionDetail.objects.filter(user=self.request.user, draw_time=datetime.date.today()).order_by('-draw_time')
-        if mission_detail:
-            if mission_detail[0].draw_time == datetime.date.today():
-                context['draw_flg'] = True
-            context['data'] = mission_detail[0]
-        return context
+        if self.request.user.is_authenticated:
+            context = super().get_context_data(**kwargs)
+            mission_detail = MissionDetail.objects.filter(user=self.request.user, draw_time=datetime.date.today()).order_by('-draw_time')
+            if mission_detail:
+                if mission_detail[0].draw_time == datetime.date.today():
+                    context['draw_flg'] = True
+                context['data'] = mission_detail[0]
+            return context
+        else:
+            return super().get_context_data(**kwargs)
 
 class GatherView(ListView):
     template_name = 'gather.html'

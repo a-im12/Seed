@@ -25,3 +25,17 @@ class MissionDetail(models.Model):
     mission = models.ForeignKey(Mission, verbose_name="ミッション", on_delete=models.CASCADE)
     draw_time = models.DateTimeField(verbose_name="抽選日時")
 
+class Genre(models.Model):
+    name = models.CharField(verbose_name="ジャンル名", max_length=10)
+    
+    def __str__(self):
+        return self.name
+
+class Product(models.Model):
+    name = models.CharField(verbose_name="商品名", max_length=50)
+    genre = models.ForeignKey(Genre, verbose_name="ジャンル", on_delete=models.CASCADE)
+    price = models.IntegerField(verbose_name="価格")
+    image = models.ImageField(verbose_name="商品画像", upload_to='product_img/')
+    detail = models.TextField(verbose_name="詳細", max_length=300)
+    company = models.ForeignKey(CustomUser, verbose_name="掲載企業", on_delete=models.CASCADE)
+    create_at = models.DateTimeField(verbose_name="作成日時", auto_now_add=True)
