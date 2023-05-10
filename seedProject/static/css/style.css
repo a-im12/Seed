@@ -46,3 +46,31 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.food_form_table tr{
+    height: 50px;
+}
+
+.food_form_table td{
+    width: 150px;
+}
+
+.food_form_table label{
+    font-size:large;
+}
+
+#id_name{
+    width: 300px;
+}
+
+#id_price{
+    width: 300px;
+}
+
+#id_genre{
+    width: 300px;
+}
+
+#id_image{
+    padding-left:30px;
+}

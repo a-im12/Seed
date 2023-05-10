@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from .models import Gather, MissionDetail, Mission, Product
-from .forms import GatherPostForm
+from .forms import GatherPostForm, FoodPostForm
 
 import datetime
 import random
@@ -102,3 +102,18 @@ class GatherDeleteView(DeleteView):
     
     def delete(self, request, *args, **kwargs):
         return super().delete(request, *args, **kwargs)
+
+class FoodDoneView(TemplateView):
+    template_name = 'foodrescuedone.html'
+
+class CreateFoodView(CreateView):
+    form_class = FoodPostForm
+    template_name = 'foodrescuepost.html'
+    
+    success_url = reverse_lazy('seed:fooddone')
+    
+    def form_valid(self, form):
+        data = form.save(commit=False)
+        data.company = self.request.user
+        data.save()
+        return super().form_valid(form)

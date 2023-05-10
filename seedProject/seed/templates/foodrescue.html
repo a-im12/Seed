@@ -9,9 +9,10 @@
         {% if request.user.is_general %}
         <a href="" class="btn btn-light" style="background-color: #ad6500; color:white;">お気に入り一覧</a>
         {% else %}
-        <a href="" class="btn btn-light" style="background-color: #ad6500; color:white;">商品を投稿する</a>
+        <a href="{% url 'seed:foodpost' %}" class="btn btn-light" style="background-color: #ad6500; color:white;">商品を投稿する</a>
+        <a href="" class="btn btn-light" style="background-color: #ad6500; color:white;">投稿一覧</a>
+        {% endif %}
     </div>
-    {% endif %}
     {% if product_list %}
         {% for product in product_list %}
         <h1>{{product.name}}</h1>

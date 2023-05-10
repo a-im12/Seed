@@ -3,13 +3,45 @@
 {% block title %}Seed - Food rescue{% endblock %}
 {% block content %}
 {% if request.user.is_authenticated %}
-    {% if request.user.is_general %}
-    <h1>企業専用機能です</h1>
-    <a href="{% url 'seed:mypage' %}" class="btn btn-primary">マイページへ</a>
-    {% else %}
-    {% endif %}
+{% if request.user.is_general %}
+<h1>企業専用機能です</h1>
+<a href="{% url 'seed:mypage' %}" class="btn btn-primary">マイページへ</a>
 {% else %}
-    <h1>ログインしてください</h1>
-    <a href="{% url 'seed:login' %}" class="btn btn-primary">ログイン</a>
+    <div class="text-center">
+        <h1 class="title" style="background-color: #ad6500; color:white;">Food rescue</h1>
+    </div>
+    <hr>
+    <div class="text-start">
+        <a href="{% url 'seed:food_rescue' %}" class="btn btn-light" style="background-color: #ad6500; color:white;">戻る</a>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class="food_form_table" style="margin:auto;">
+            {% for field in form %}
+            <tr>
+                <td>
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }} :</label>
+                </td>
+                <td class="text-end">
+                    {{ field }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% if form.errors %}
+        {% for field, error in form.errors.items %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        <div class="text-center" style="margin-top:50px">
+            <button type="submit" class="btn btn-light" style="background-color:#ad6500; color: white;">
+                投稿
+            </button>
+        </div>
+    </form>
+{% endif %}
+{% else %}
+<h1>ログインしてください</h1>
+<a href="{% url 'seed:login' %}" class="btn btn-primary">ログイン</a>
 {% endif %}
 {% endblock %}
