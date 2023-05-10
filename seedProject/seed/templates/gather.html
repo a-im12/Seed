@@ -4,9 +4,12 @@
 {% block content %}
 <div class="text-center">
     {% if request.user.is_authenticated %}
-    <h1>gather</h1>
-    <a href="{% url 'seed:gatherpost' %}">投稿</a>
-    <a href="{% url 'seed:mygather' %}">自分の投稿</a>
+    <h1 class="title" style="background: #ffc107; color:white;">Gather</h1>
+    <hr>
+    <div class="text-end" style="margin-bottom:20px;">
+        <a class="btn btn-warning" href="{% url 'seed:gatherpost' %}"  style="color:white;">投稿</a>
+        <a class="btn btn-warning" href="{% url 'seed:mygather' %}"  style="color:white;">自分の投稿</a>
+    </div>
 
     <div class="container">
         <div class="row">
@@ -20,9 +23,10 @@
                             {{gather.user_id.username}}
                         </p>
                         <p class="card-text" style="color:gray; font-size:smaller;">
-                            <span class="text-start">投稿日 : </span><span class="text-end">{{gather.create_at|date:"Y/m/d"}}</span>
+                            <span class="text-start">投稿日 : </span><span
+                                class="text-end">{{gather.create_at|date:"Y/m/d"}}</span>
                         </p>
-                        <a href="" class="btn btn-warning" style="color:white;">詳細</a>
+                        <a href="{% url 'seed:gather_detail' gather.pk %}" class="btn btn-warning" style="color:white;">詳細</a>
                     </div>
                 </div>
             </div>

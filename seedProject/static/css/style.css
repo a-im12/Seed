@@ -27,3 +27,22 @@
     background-color: #313135;
     color: #fff;
 }
+
+.title{
+    padding: 20px 0px 20px 0px;
+}
+
+.detail-table tr{
+    height:70px;
+}
+
+.detail-table td{
+    width: 200px;
+}
+
+.card-title{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

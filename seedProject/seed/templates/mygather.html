@@ -4,7 +4,11 @@
 
 {% block content %}
 <div class="text-center">
-    <h1>自分の投稿したもの</h1>
+    <h1 class="title" style="background: #ffc107; color:white;">Posted</h1>
+    <hr>
+    <div class="text-start" style="margin-bottom:20px;">
+        <a href="{% url 'seed:gather' %}" class="btn btn-warning" style="color:white;">Gather一覧に戻る</a>
+    </div>
     {% if mygather_list %}
     <div class="row">
         {% for gather in mygather_list %}
@@ -16,7 +20,10 @@
                     <p class="card-text">
                         {{gather.user_id.username}}
                     </p>
-                    <a href="" class="btn btn-warning" style="color:white;">詳細</a>
+                    <a href="{% url 'seed:gather_detail' gather.pk %}" class="btn btn-warning" style="color:white;">詳細</a>
+                    <form method="POST">
+                        <a href="{% url 'seed:gather_delete' gather.pk %}" class="btn btn-danger" style="color:white;">削除</a>
+                    </form>
                 </div>
             </div>
         </div>

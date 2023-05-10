@@ -11,11 +11,12 @@
         </div>
         <br>
         <br>
+        {% if user.is_general %}
         <div class="container">
             <div class="row">
                 <div class="col-3">
                     <div class="card" style="width: 100%;">
-                        <img src="{% static 'assets/img/mypage/damy.png' %}" class="card-img-top" alt="...">
+                        <img src="{% static 'assets/img/mypage/food.png' %}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Food rescue</h5>
                             <p class="card-text">
@@ -58,7 +59,7 @@
                 </div>
                 <div class="col-3">
                     <div class="card" style="width: 100%;">
-                        <img src="{% static 'assets/img/mypage/damy.png' %}" class="card-img-top" alt="...">
+                        <img src="{% static 'assets/img/mypage/community.png' %}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Community</h5>
                             <p class="card-text">
@@ -72,6 +73,55 @@
                 </div>
             </div>
         </div>
+        {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="width: 100%;">
+                        <img src="{% static 'assets/img/mypage/food.png' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Food rescue</h5>
+                            <p class="card-text">
+                                あなたの食品ロスを解決します<br>
+                                <br>
+                                <br>
+                            </p>
+                            <a href="{% url 'seed:food_rescue' %}" class="btn btn-light" style="background-color: #ad6500; color:white;">Go
+                                somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 100%;">
+                        <img src="{% static 'assets/img/mypage/gather.png' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Gather</h5>
+                            <p class="card-text">
+                                ボランティア・地域活動<br>
+                                サポートします<br>
+                                <br>
+                            </p>
+                            <a href="{% url 'seed:gather' %}" class="btn btn-warning" style="color:white;">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 100%;">
+                        <img src="{% static 'assets/img/mypage/community.png' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Community</h5>
+                            <p class="card-text">
+                                企業情報を発信しませんか？<br>
+                                <br>
+                                <br>
+                            </p>
+                            <a href="{% url 'seed:community' %}" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

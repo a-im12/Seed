@@ -1,0 +1,26 @@
+
+{% extends 'mypagebase.html' %}
+{% load static %}
+{% block title %}Seed - Gather{% endblock %}
+{% if request.user.is_authenticated %}
+{% block content %}
+<div class="text-center">
+    <h1 class="title" style="background-color:#ffc107; color:white;">Gather - Delete</h1>
+    <hr>
+    <table class="detail-table" style="margin:auto; font-size:20px;">
+        <tr>
+            <td>タイトル :</td>
+            <td>{{object.title}}</td>
+        </tr>
+    </table>
+    <form method="POST">
+        {% csrf_token %}
+        <input class="btn btn-danger" type="submit" value="削除">
+        <a href="{% url 'seed:mygather' %}" style="color:#ffc107; margin-left: 20px;">戻る</a>
+    </form>
+</div>
+{% endblock %}
+{% else %}
+<h1>ログインしてください</h1>
+<a href="{% url 'seed:login' %}" class="btn btn-primary">ログイン</a>
+{% endif %}

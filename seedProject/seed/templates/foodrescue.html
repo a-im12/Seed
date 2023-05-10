@@ -3,13 +3,13 @@
 {% block title %}Seed - Food rescue{% endblock %}
 {% block content %}
 <div class="text-center">
-    <h1>foodrescue</h1>
+    <h1 class="title" style="background-color: #ad6500; color:white;">foodrescue</h1>
     <hr>
     <div class="text-end">
         {% if request.user.is_general %}
-        <a href="" class="btn btn-primary">お気に入り一覧</a>
+        <a href="" class="btn btn-light" style="background-color: #ad6500; color:white;">お気に入り一覧</a>
         {% else %}
-        <a href="" class="btn btn-primary">商品を投稿する</a>
+        <a href="" class="btn btn-light" style="background-color: #ad6500; color:white;">商品を投稿する</a>
     </div>
     {% endif %}
     {% if product_list %}
@@ -23,7 +23,7 @@
             {% endif %}
         {% endfor %}
     {% else %}
-        <h3>投稿されている商品はありません。</h3>
+        <h3 class="text-center">投稿されている商品はありません。</h3>
     {% endif %}
 </div>
 {% endblock %}

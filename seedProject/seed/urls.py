@@ -14,4 +14,6 @@ urlpatterns = [
     path('gatherdone/', views.GatherDoneView.as_view(), name='gatherdone'),
     path('mygather/', views.MyGatherView.as_view(), name='mygather'),
     path('draw/', views.draw, name='draw'),
+    path('gather_detail/<int:pk>/', views.GatherDetailView.as_view(), name='gather_detail'),
+    path('mygather/<int:pk>/delete/', views.GatherDeleteView.as_view(), name='gather_delete'),
 ]

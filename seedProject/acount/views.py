@@ -42,12 +42,7 @@ class UserLoginView(LoginView):
     template_name = 'login.html'
     
     def get_success_url(self):
-        if self.request.user.is_general:
-            return reverse_lazy('seed:mypage')
-        elif self.request.user.is_active:
-            return reverse_lazy('seed:company_mypage')
-        else:
-            return reverse_lazy('acount:login')
+        return reverse_lazy('seed:mypage')
 
 class LogoutView(LogoutView):
     template_name = 'logout.html'

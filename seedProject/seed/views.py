@@ -1,6 +1,6 @@
 from typing import Any, Dict
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from .models import Gather, MissionDetail, Mission, Product
 from .forms import GatherPostForm
@@ -90,3 +90,15 @@ def draw(request):
     mission_detail_model.save()
     
     return render(request, 'mission.html', {'data': mission_detail_model, 'draw_flg': draw_flg})
+
+class GatherDetailView(DetailView):
+    template_name = 'gatherdetail.html'
+    model = Gather
+
+class GatherDeleteView(DeleteView):
+    template_name = 'gatherdelete.html'
+    model = Gather
+    success_url = reverse_lazy('seed:gather')
+    
+    def delete(self, request, *args, **kwargs):
+        return super().delete(request, *args, **kwargs)
