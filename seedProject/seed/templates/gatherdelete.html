@@ -2,7 +2,6 @@
 {% extends 'mypagebase.html' %}
 {% load static %}
 {% block title %}Seed - Gather{% endblock %}
-{% if request.user.is_authenticated %}
 {% block content %}
 <div class="text-center">
     <h1 class="title" style="background-color:#ffc107; color:white;">Gather - Delete</h1>
@@ -20,7 +19,3 @@
     </form>
 </div>
 {% endblock %}
-{% else %}
-<h1>ログインしてください</h1>
-<a href="{% url 'seed:login' %}" class="btn btn-primary">ログイン</a>
-{% endif %}

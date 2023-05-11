@@ -3,43 +3,38 @@
 {% block title %}Seed - Mission{% endblock %}
 {% block content %}
 <div class="text-center">
-    {% if request.user.is_authenticated %}
-        {% if request.user.is_general %}
-            <h1 class="title" style="background-color: #198754; color:white">Mission</h1>
-            <hr>
-            {% if data %}
-                <br>
-                <br>
-                <div class="circle">
-                    <h1>{{data.mission.rank}}</h1>
-                </div>
-                <br>
-                <br>
-                <p>【今日のミッション】</p>
-                <p style="font-size:20px;">{{data.mission.mission}}</p>
-                <br>
-                <br>
-                <p style="color:gray;">※一日一回しか抽選できません。</p>
-            {% else %}
-                <br>
-                <br>
-                <br>
-                <br>
-                <h3>今日のミッションはまだ与えられていません</h3>
-                <br>
-                <br>
-                <p>一日一回、くじを引いてその日の運勢とミッションを獲得しよう!</p>
-                <br>
-                <br>
-                <button type="button" onclick="location.href='{% url 'seed:draw' %}'" class="btn btn-success">今日のミッションを取得</button>
-            {% endif %}
-        {% else %}
-            <h1>一般ユーザ専用機能です</h1>
-            <a href="{% url 'seed:mypage' %}" class="btn btn-primary">マイページへ</a>
-        {% endif %}
+    {% if request.user.is_general %}
+    <h1 class="title" style="background-color: #198754; color:white">Mission</h1>
+    <hr>
+    {% if data %}
+    <br>
+    <br>
+    <div class="circle">
+        <h1>{{data.mission.rank}}</h1>
+    </div>
+    <br>
+    <br>
+    <p>【今日のミッション】</p>
+    <p style="font-size:20px;">{{data.mission.mission}}</p>
+    <br>
+    <br>
+    <p style="color:gray;">※一日一回しか抽選できません。</p>
     {% else %}
-        <h1>ログインしてください</h1>
-        <a href="{% url 'seed:login' %}" class="btn btn-primary">ログイン</a>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3>今日のミッションはまだ与えられていません</h3>
+    <br>
+    <br>
+    <p>一日一回、くじを引いてその日の運勢とミッションを獲得しよう!</p>
+    <br>
+    <br>
+    <button type="button" onclick="location.href='{% url 'seed:draw' %}'" class="btn btn-success">今日のミッションを取得</button>
+    {% endif %}
+    {% else %}
+    <h1>一般ユーザ専用機能です</h1>
+    <a href="{% url 'seed:mypage' %}" class="btn btn-primary">マイページへ</a>
     {% endif %}
 </div>
 {% endblock %}

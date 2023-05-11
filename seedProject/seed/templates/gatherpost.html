@@ -3,7 +3,6 @@
 {% block title %}Seed - Gather{% endblock %}
 
 {% block content %}
-{% if request.user.is_authenticated %}
 
 <div class="text-center">
     <h1 class="title" style="background: #ffc107; color:white;">Gather - Post</h1>
@@ -22,11 +21,7 @@
             {% endfor %}
         </div>
         <button type="submit" class="btn btn-warning" style="color:white">投稿</button>
+    </form>
 </div>
-{% else %}
-<h1>ログインしてください</h1>
-<a href="{% url 'seed:login' %}" class="btn btn-primary">ログイン</a>
-{% endif %}
-</form>
 
 {% endblock %}

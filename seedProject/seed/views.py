@@ -117,3 +117,7 @@ class CreateFoodView(CreateView):
         data.company = self.request.user
         data.save()
         return super().form_valid(form)
+
+class FoodDetailView(DetailView):
+    template_name = 'fooddetail.html'
+    model = Product

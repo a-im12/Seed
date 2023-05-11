@@ -2,40 +2,35 @@
 {% load static %}
 {% block title %}Seed - Gather{% endblock %}
 {% block content %}
-{% if request.user.is_authenticated %}
-    <div class="text-center">
-        <h1 class="title" style="background: #ffc107; color:white;">Detail</h1>
-        <hr>
-        <div class="text-start" style="margin-bottom:20px;">
-            <a href="{% url 'seed:gather' %}" class="btn btn-warning" style="color:white;">Gather一覧に戻る</a>
-        </div>
-        <h1 style="margin-bottom:50px;">{{object.title}}</h1>
-        
-        <table class="detail-table" style="margin:auto; font-size:20px;">
-            <tr>
-                <td class="text-start">投稿者 :</td>
-                <td class="text-end">{{object.user_id.username}}</td>
-            </tr>
-            <tr>
-                <td class="text-start">実施場所 :</td>
-                <td class="text-end">{{object.access}}</td>
-            </tr>
-            <tr>
-                <td class="text-start">詳細 :</td>
-                <td class="text-end">{{object.detail}}</td>
-            </tr>
-            <tr>
-                <td class="text-start">投稿者連絡先 :</td>
-                <td class="text-end">{{object.contact}}</td>
-            </tr>
-            <tr>
-                <td class="text-start">投稿日時</td>
-                <td class="text-end">{{object.create_at|date:"Y/m/d"}}</td>
-            </tr>
-        </table>
+<div class="text-center">
+    <h1 class="title" style="background: #ffc107; color:white;">Detail</h1>
+    <hr>
+    <div class="text-start" style="margin-bottom:20px;">
+        <a href="{% url 'seed:gather' %}" class="btn btn-warning" style="color:white;">Gather一覧に戻る</a>
     </div>
-{% else %}
-    <h1>ログインしてください</h1>
-    <a href="{% url 'seed:login' %}" class="btn btn-primary">ログイン</a>
-{% endif %}
+    <h1 style="margin-bottom:50px;">{{object.title}}</h1>
+
+    <table class="detail-table" style="margin:auto; font-size:20px;">
+        <tr>
+            <td class="text-start">投稿者 :</td>
+            <td class="text-end">{{object.user_id.username}}</td>
+        </tr>
+        <tr>
+            <td class="text-start">実施場所 :</td>
+            <td class="text-end">{{object.access}}</td>
+        </tr>
+        <tr>
+            <td class="text-start">詳細 :</td>
+            <td class="text-end">{{object.detail}}</td>
+        </tr>
+        <tr>
+            <td class="text-start">投稿者連絡先 :</td>
+            <td class="text-end">{{object.contact}}</td>
+        </tr>
+        <tr>
+            <td class="text-start">投稿日時</td>
+            <td class="text-end">{{object.create_at|date:"Y/m/d"}}</td>
+        </tr>
+    </table>
+</div>
 {% endblock %}

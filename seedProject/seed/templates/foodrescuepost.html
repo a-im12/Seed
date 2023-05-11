@@ -2,7 +2,6 @@
 {% load static %}
 {% block title %}Seed - Food rescue{% endblock %}
 {% block content %}
-{% if request.user.is_authenticated %}
 {% if request.user.is_general %}
 <h1>企業専用機能です</h1>
 <a href="{% url 'seed:mypage' %}" class="btn btn-primary">マイページへ</a>
@@ -39,9 +38,5 @@
             </button>
         </div>
     </form>
-{% endif %}
-{% else %}
-<h1>ログインしてください</h1>
-<a href="{% url 'seed:login' %}" class="btn btn-primary">ログイン</a>
 {% endif %}
 {% endblock %}
