@@ -39,3 +39,7 @@ class Product(models.Model):
     detail = models.TextField(verbose_name="詳細", max_length=300)
     company = models.ForeignKey(CustomUser, verbose_name="掲載企業", on_delete=models.CASCADE)
     create_at = models.DateTimeField(verbose_name="作成日時", auto_now_add=True)
+
+class Favorite(models.Model):
+    product = models.ForeignKey(Product, verbose_name="商品", on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, verbose_name="ユーザー", on_delete=models.CASCADE)
