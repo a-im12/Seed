@@ -119,5 +119,5 @@ class CreateFoodView(CreateView):
         return super().form_valid(form)
 
 class FoodDetailView(DetailView):
-    template_name = 'fooddetail.html'
+    template_name = 'foodrescuedetail.html'
     model = Product

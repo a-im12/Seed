@@ -2,5 +2,48 @@
 {% load static %}
 {% block title %}Seed - Food rescue{% endblock %}
 {% block content %}
-
+<div class="text-center">
+    <h1 class="title" style="background-color: #ad6500; color:white;">Food rescue - Detail</h1>
+    <hr>
+    <div class="text-start">
+        <a href="{% url 'seed:food_rescue' %}" class="btn btn-light" style="background-color:#ad6500; color:white;">Food rescue一覧に戻る</a>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row" style="height: 500px; width:100%; overflow-y: scroll;">
+        <div class="col">
+            <img src="{{object.image.url}}" style="width:400px">
+        </div>
+        <div class="col">
+            <h1>{{object.name}}</h1>
+            <table class="foodtable" style="margin:auto;">
+                <tr>
+                    <td class="text-start">提供元　 :</td>
+                    <td class="text-end text-break">{{object.company.username}}</td>
+                </tr>
+                <tr>
+                    <td class="text-start">価格　　 :</td>
+                    <td class="text-end text-break">¥ {{object.price}}</td>
+                </tr>
+                <tr>
+                    <td class="text-start">商品詳細 :</td>
+                    <td class="text-end text-break">{{object.detail}}</td>
+                </tr>
+                <tr>
+                    <td class="text-start">投稿日　 :</td>
+                    <td class="text-end">{{object.create_at|date:"Y/m/d"}}</td>
+                </tr>
+            </table>
+            <br>
+            <br>
+            {% if request.user.is_general %}
+            <button class="btn btn-danger">お気に入りに登録</button>
+            {% endif %}
+        </div>
+    </div>
+    
+</div>
 {% endblock %}

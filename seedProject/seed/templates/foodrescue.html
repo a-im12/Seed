@@ -30,7 +30,7 @@
                         <span class="text-start">投稿日 : </span><span
                             class="text-end">{{product.create_at|date:"Y/m/d"}}</span>
                     </p>
-                    <a href="" class="btn btn-light" style="background-color:#ad6500; color:white;">詳細</a>
+                    <a href="{% url 'seed:fooddetail' product.pk %}" class="btn btn-light" style="background-color:#ad6500; color:white;">詳細</a>
                 </div>
             </div>
         </div>

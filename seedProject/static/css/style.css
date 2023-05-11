@@ -89,3 +89,15 @@
     font-size: 70px;
     line-height: 200px;
 }
+
+.foodtable{
+    font-size: large;
+}
+
+.foodtable tr{
+    height: 50px;
+}
+
+.foodtable td{
+    width: 150px;
+}
