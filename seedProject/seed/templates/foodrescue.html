@@ -5,7 +5,7 @@
 <div class="text-center">
     <h1 class="title" style="background-color: #ad6500; color:white;">foodrescue</h1>
     <hr>
-    <div class="text-end">
+    <div class="text-end" style="margin-bottom:20px;">
         {% if request.user.is_general %}
         <a href="" class="btn btn-light" style="background-color: #ad6500; color:white;">お気に入り一覧</a>
         {% else %}
@@ -14,15 +14,28 @@
         {% endif %}
     </div>
     {% if product_list %}
+    <div class="row" style="height: 650px; width:100%; overflow-y: scroll;">
         {% for product in product_list %}
-        <h1>{{product.name}}</h1>
-            {% if product.image %}
-            <img src="{{product.image.url}}" alt="..." class="img-thumbnail" style="width: 200px; height: 200px;">
-            {% else %}
-            <img src="{% static 'assets/img/mypage/damy.png' %}" alt="..." class="img-thumbnail"
-                style="width: 200px; height: 200px;">
-            {% endif %}
+        <div class="col-3" style="margin-top:10px;">
+            <div class="card" style="width: 100%;">
+                <img src="{{product.image.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <p class="card-text">
+                        {{product.company.username}}
+                    </p>
+                    <p class="card-text" style="color:gray; font-size:smaller;">
+                        <span class="text-start">価格 : </span><span
+                            class="text-end">¥{{product.price}}</span><br>
+                        <span class="text-start">投稿日 : </span><span
+                            class="text-end">{{product.create_at|date:"Y/m/d"}}</span>
+                    </p>
+                    <a href="" class="btn btn-light" style="background-color:#ad6500; color:white;">詳細</a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
+    </div>
     {% else %}
         <h3 class="text-center">投稿されている商品はありません。</h3>
     {% endif %}

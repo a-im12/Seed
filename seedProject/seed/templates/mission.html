@@ -8,13 +8,29 @@
             <h1 class="title" style="background-color: #198754; color:white">Mission</h1>
             <hr>
             {% if data %}
-                <h1>{{data.mission.rank}}</h1>
-
+                <br>
+                <br>
+                <div class="circle">
+                    <h1>{{data.mission.rank}}</h1>
+                </div>
+                <br>
+                <br>
                 <p>【今日のミッション】</p>
-                <p>{{data.mission.mission}}</p>
+                <p style="font-size:20px;">{{data.mission.mission}}</p>
+                <br>
+                <br>
+                <p style="color:gray;">※一日一回しか抽選できません。</p>
             {% else %}
+                <br>
+                <br>
+                <br>
+                <br>
                 <h3>今日のミッションはまだ与えられていません</h3>
+                <br>
+                <br>
                 <p>一日一回、くじを引いてその日の運勢とミッションを獲得しよう!</p>
+                <br>
+                <br>
                 <button type="button" onclick="location.href='{% url 'seed:draw' %}'" class="btn btn-success">今日のミッションを取得</button>
             {% endif %}
         {% else %}

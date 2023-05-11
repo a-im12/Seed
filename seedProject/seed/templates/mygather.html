@@ -4,13 +4,13 @@
 
 {% block content %}
 <div class="text-center">
-    <h1 class="title" style="background: #ffc107; color:white;">Posted</h1>
+    <h1 class="title" style="background: #ffc107; color:white;">Gather - Posted</h1>
     <hr>
     <div class="text-start" style="margin-bottom:20px;">
         <a href="{% url 'seed:gather' %}" class="btn btn-warning" style="color:white;">Gather一覧に戻る</a>
     </div>
     {% if mygather_list %}
-    <div class="row">
+    <div class="row" style="height: 650px; width:100%; overflow-y: scroll;">
         {% for gather in mygather_list %}
         <div class="col-3">
             <div class="card" style="width: 100%;">
