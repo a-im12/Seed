@@ -9,7 +9,7 @@
 
         </div>
         <div class="col">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="center-block">
                     {% for field in form %}
