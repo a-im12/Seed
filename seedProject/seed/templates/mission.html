@@ -37,7 +37,7 @@
         <p>くじを引くとMissionPointが加算されます。</p>
         <br>
         <br>
-        <button type="button" onclick="location.href='{% url 'seed:draw' %}'" class="btn btn-success">今日のミッションを取得</button>
+        <a href="{% url 'seed:draw' %}" class="btn btn-success">今日のミッションを取得</a>
     {% endif %}
     {% else %}
         <h1>一般ユーザ専用機能です</h1>
