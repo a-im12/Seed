@@ -83,10 +83,10 @@ class MyGatherView(ListView):
 def draw(request):
     draw_flg = False
     data = MissionDetail.objects.filter(user=request.user, draw_time=datetime.date.today()).order_by('-draw_time')
-    if data:    
-        if data[0].draw_time == datetime.date.today():
-            draw_flg = True
-            return render(request, 'mission.html', {'data': data, 'draw_flg': draw_flg})
+    print(len(data))
+    if len(data) != 0:
+        if data[0].draw_time.date() + datetime.timedelta(days=1) == datetime.date.today():
+            return redirect('seed:mission')
     
     mission_detail_model = MissionDetail()
     
