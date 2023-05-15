@@ -27,11 +27,6 @@
             </tr>
             {% endfor %}
         </table>
-        {% if form.errors %}
-        {% for field, error in form.errors.items %}
-                <div class="error">{{ error }}</div>
-            {% endfor %}
-        {% endif %}
         <div class="text-center" style="margin-top:50px">
             <button type="submit" class="btn btn-light" style="background-color:#ad6500; color: white;">
                 投稿

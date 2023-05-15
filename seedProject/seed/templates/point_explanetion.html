@@ -1,0 +1,22 @@
+{% extends 'mypagebase.html' %}
+{% load static %}
+{% block title %}Seed - Point{% endblock %}
+
+{% block content %}
+{% if request.user.is_general %}
+<div class="text-center">
+    <h1 class="title" style="background-color: #198754; color:white">Mission</h1>
+    <hr>
+    <div class="text-start">
+        <button onclick="history.back()" class="btn btn-success">戻る</button>
+    </div>
+    <h1>Mission Pointとは?</h1>
+    <br>
+    <p>
+        Mission Pointとは一日一回Missionくじを引くことでもらえるポイントです。<br>
+        Mission PointはFood rescue対応店で使用することができます。<br>
+        ポイントの使用は現在保持しているポイント全てを使用するので、ご注意ください。
+    </p>
+</div>
+{% endif %}
+{% endblock %}

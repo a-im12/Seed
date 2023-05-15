@@ -1,4 +1,5 @@
 from typing import Any, Dict
+from django.http import FileResponse
 from django.shortcuts import render
 from django.shortcuts import redirect, reverse
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, DeleteView
@@ -8,6 +9,7 @@ from .forms import GatherPostForm, FoodPostForm
 
 import datetime
 import random
+import qrcode
 
 class MypageView(TemplateView):
     template_name = 'mypage.html'
@@ -83,17 +85,20 @@ class MyGatherView(ListView):
 def draw(request):
     draw_flg = False
     data = MissionDetail.objects.filter(user=request.user, draw_time=datetime.date.today()).order_by('-draw_time')
-    print(len(data))
     if len(data) != 0:
         if data[0].draw_time.date() + datetime.timedelta(days=1) == datetime.date.today():
             return redirect('seed:mission')
     
     mission_detail_model = MissionDetail()
     
+    user_model = request.user
+    user_model.mission_point += 1
+    
     mission_detail_model.user = request.user
     mission_detail_model.mission = Mission.objects.get(id=random.randint(1, len(Mission.objects.all())))
     mission_detail_model.draw_time = datetime.date.today()
     
+    user_model.save()
     mission_detail_model.save()
     
     return render(request, 'mission.html', {'data': mission_detail_model, 'draw_flg': draw_flg})
@@ -210,3 +215,26 @@ class FoodDeleteView(DeleteView):
             return reverse_lazy('seed:myfood')
         else:
             return reverse_lazy('seed:food_rescue')
+
+def download_mission_qr(request):
+    point = request.user.mission_point
+    
+    print(point)
+    
+    img = qrcode.make('http://127.0.0.1:8000/point/')
+    img.save("qr.png")
+    
+    return FileResponse(open("qr.png", 'rb'), as_attachment=True, filename='qr.png')
+
+def use_point(request):
+    user_model = request.user
+    user_model.mission_point -= user_model.mission_point
+    user_model.save()
+    
+    return redirect('seed:pointthankyou')
+
+class PointThankyouView(TemplateView):
+    template_name = 'pointthankyou.html'
+
+class PointExplanetionView(TemplateView):
+    template_name = 'point_explanetion.html'
