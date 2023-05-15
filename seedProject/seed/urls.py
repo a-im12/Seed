@@ -24,4 +24,5 @@ urlpatterns = [
     path('foodfavoritedelete/', views.delete_favorite, name='foodfavorite_delete'),
     path('myfood/', views.MyFoodView.as_view(), name='myfood'),
     path('search_for_genre/', views.search_for_genre, name='search_for_genre'),
+    path('fooddetail/<int:pk>/fooddelete/', views.FoodDeleteView.as_view(), name='food_delete'),
 ]

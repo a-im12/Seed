@@ -15,7 +15,6 @@
                         <option value={{genre.id}}>{{genre.name}}</option>
                     {% endfor %}
                 </select>
-
                 <input type="submit" class="btn btn-light" value="検索" style="background-color: #ad6500; color: white;">
             </form>
         </div>
@@ -42,7 +41,7 @@
                     <p class="card-text" style="color:gray; font-size:smaller;">
                         <span class="text-start">価格 : </span><span
                             class="text-end">¥{{product.price}}</span><br>
-                        <span class="text-start">投稿日 : </span><span>
+                        <span class="text-start">投稿日 : </span><span
                             class="text-end">{{product.create_at|date:"Y/m/d"}}</span>
                     </p>
                     <a href="{% url 'seed:fooddetail' product.pk %}?source=rescue" class="btn btn-light" style="background-color:#ad6500; color:white;">詳細</a>

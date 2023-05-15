@@ -199,3 +199,14 @@ def search_for_genre(request):
         }
     
     return render(request, 'foodrescue.html', context)
+
+class FoodDeleteView(DeleteView):
+    template_name = 'fooddelete.html'
+    model = Product
+    
+    def get_success_url(self):
+        print("今")
+        if self.request.GET.get('posted') == 'posted':
+            return reverse_lazy('seed:myfood')
+        else:
+            return reverse_lazy('seed:food_rescue')

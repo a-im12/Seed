@@ -59,7 +59,7 @@
                         {% endif %}
                         <input type="submit" class="btn btn-danger" value="お気に入り解除" style="color:white;">
                     </form>
-                        {% else %}
+                {% else %}
                     <form method="POST" action="{% url 'seed:addfavorite' %}">
                         {% csrf_token %}
                         <input type="hidden" name="product_id" value="{{object.pk}}">
@@ -73,11 +73,11 @@
                 {% endif %}
             {% else %}
                 {% if object.company.id == request.user.id %}
-                    <form method="POST" action="">
-                        {% csrf_token %}
-                        <input type="hidden" name="product_id" value="{{object.pk}}">
-                        <input type="submit" class="btn btn-danger" value="削除" style="color:white;">
-                    </form>
+                    {% if request.GET.posted %}
+                        <a href="{% url 'seed:food_delete' object.pk %}?posted=posted" class="btn btn-danger" style="color:white;">削除</a>
+                    {% else %}
+                        <a href="{% url 'seed:food_delete' object.pk %}" class="btn btn-danger" style="color:white;">削除</a>
+                    {% endif %}
                 {% endif %}
             {% endif %}
         </div>
