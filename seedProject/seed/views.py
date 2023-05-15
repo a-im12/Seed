@@ -1,8 +1,9 @@
 from typing import Any, Dict
 from django.shortcuts import render
+from django.shortcuts import redirect, reverse
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
-from .models import Gather, MissionDetail, Mission, Product
+from .models import Gather, MissionDetail, Mission, Product, Favorite, Genre
 from .forms import GatherPostForm, FoodPostForm
 
 import datetime
@@ -21,6 +22,12 @@ class FoodRescueView(ListView):
     
     def get_queryset(self):
         return Product.objects.order_by('-create_at')
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        genre = Genre.objects.all()
+        context['genre_list'] = genre
+        return context
 
 class CommunityView(TemplateView):
     template_name = 'community.html'
@@ -121,3 +128,74 @@ class CreateFoodView(CreateView):
 class FoodDetailView(DetailView):
     template_name = 'foodrescuedetail.html'
     model = Product
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        favorite_list = Favorite.objects.filter(user=self.request.user, product=self.object)
+        if favorite_list:
+            context['favorite'] = favorite_list
+        
+        return context
+
+def add_favorite(request):
+    favorite_model = Favorite()
+    
+    select_product = Product.objects.get(id=request.POST.get('product_id'))
+    page_source = request.POST.get('source')
+    
+    favorite_model.user = request.user
+    favorite_model.product = select_product
+    
+    favorite_model.save()
+    url = reverse('seed:fooddetail', kwargs={'pk': request.POST.get('product_id')})
+    
+    if page_source == 'rescue':
+        return redirect(url + '?source=rescue')
+    else:
+        return redirect('seed:fooddetail', pk=request.POST.get('product_id'))
+
+class FoodFavoriteView(ListView):
+    template_name = 'foodrescuefavorite.html'
+    model = Favorite
+    context_object_name = 'favorite_list'
+    
+    def get_queryset(self):
+        return Favorite.objects.filter(user=self.request.user)
+
+def delete_favorite(request):
+    delete_favorite = Favorite.objects.filter(user=request.user, product=request.POST.get('product_id'))
+    page_source = request.POST.get('source')
+    
+    delete_favorite.delete()
+    
+    url = reverse('seed:fooddetail', kwargs={'pk': request.POST.get('product_id')})
+    
+    if page_source == 'rescue':
+        return redirect(url + '?source=rescue')
+    else:
+        return redirect('seed:fooddetail', pk=request.POST.get('product_id'))
+
+class MyFoodView(ListView):
+    template_name = 'myfood.html'
+    model = Product
+    context_object_name = 'product_list'
+    
+    def get_queryset(self):
+        return Product.objects.filter(company=self.request.user)
+
+def search_for_genre(request):
+    
+    id = request.POST.get('genre')
+    
+    if id == "":
+        return redirect('seed:food_rescue')
+    
+    food_model = Product.objects.filter(genre_id=id)
+    genre_model = Genre.objects.all()
+    context = {
+        'product_list':food_model,
+        'genre_list':genre_model,
+        }
+    
+    return render(request, 'foodrescue.html', context)

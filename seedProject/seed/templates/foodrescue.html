@@ -3,22 +3,37 @@
 {% block title %}Seed - Food rescue{% endblock %}
 {% block content %}
 <div class="text-center">
-    <h1 class="title" style="background-color: #ad6500; color:white;">foodrescue</h1>
+    <h1 class="title" style="background-color: #ad6500; color:white;">Food  rescue</h1>
     <hr>
-    <div class="text-end" style="margin-bottom:20px;">
-        {% if request.user.is_general %}
-        <a href="" class="btn btn-light" style="background-color: #ad6500; color:white;">お気に入り一覧</a>
-        {% else %}
-        <a href="{% url 'seed:foodpost' %}" class="btn btn-light" style="background-color: #ad6500; color:white;">商品を投稿する</a>
-        <a href="" class="btn btn-light" style="background-color: #ad6500; color:white;">投稿一覧</a>
-        {% endif %}
+    <div>
+        <div>
+            <form method="POST" action="{% url 'seed:search_for_genre' %}">
+                {% csrf_token %}
+                <select name="genre">
+                    <option value selected>-----------------</option>
+                    {% for genre in genre_list %}
+                        <option value={{genre.id}}>{{genre.name}}</option>
+                    {% endfor %}
+                </select>
+
+                <input type="submit" class="btn btn-light" value="検索" style="background-color: #ad6500; color: white;">
+            </form>
+        </div>
+        <div class="text-end" style="margin-bottom:20px;">
+            {% if request.user.is_general %}
+            <a href="{% url 'seed:foodfavorite' %}" class="btn btn-light" style="background-color: #ad6500; color:white;">お気に入り一覧</a>
+            {% else %}
+            <a href="{% url 'seed:foodpost' %}" class="btn btn-light" style="background-color: #ad6500; color:white;">商品を投稿する</a>
+            <a href="{% url 'seed:myfood' %}" class="btn btn-light" style="background-color: #ad6500; color:white;">投稿一覧</a>
+            {% endif %}
+        </div>
     </div>
     {% if product_list %}
     <div class="row" style="height: 650px; width:100%; overflow-y: scroll;">
         {% for product in product_list %}
         <div class="col-3" style="margin-top:10px;">
             <div class="card" style="width: 100%;">
-                <img src="{{product.image.url}}" class="card-img-top" alt="...">
+                <img src="{{product.image.url}}" class="card-img-top" alt="..." style="height:175px;">
                 <div class="card-body">
                     <h5 class="card-title">{{product.name}}</h5>
                     <p class="card-text">
@@ -27,10 +42,10 @@
                     <p class="card-text" style="color:gray; font-size:smaller;">
                         <span class="text-start">価格 : </span><span
                             class="text-end">¥{{product.price}}</span><br>
-                        <span class="text-start">投稿日 : </span><span
+                        <span class="text-start">投稿日 : </span><span>
                             class="text-end">{{product.create_at|date:"Y/m/d"}}</span>
                     </p>
-                    <a href="{% url 'seed:fooddetail' product.pk %}" class="btn btn-light" style="background-color:#ad6500; color:white;">詳細</a>
+                    <a href="{% url 'seed:fooddetail' product.pk %}?source=rescue" class="btn btn-light" style="background-color:#ad6500; color:white;">詳細</a>
                 </div>
             </div>
         </div>

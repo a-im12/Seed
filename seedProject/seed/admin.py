@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Prefecture, Gather, Mission, MissionDetail, Genre, Product
+from .models import Prefecture, Gather, Mission, MissionDetail, Genre, Product, Favorite
 
 class PrefectureAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
@@ -25,9 +25,14 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'price', 'company')
     list_display_links = ('id', 'name', 'price', 'company')
 
+class FavoriteAdmin(admin.ModelAdmin):
+    list_display = ('id', 'product', 'user')
+    list_display_links = ('id', 'product', 'user')
+
 admin.site.register(Prefecture, PrefectureAdmin)
 admin.site.register(Gather, GatherAdmin)
 admin.site.register(Mission, MissionAdmin)
 admin.site.register(MissionDetail, MissionDetailAdmin)
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Favorite, FavoriteAdmin)

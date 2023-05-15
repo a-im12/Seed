@@ -19,4 +19,9 @@ urlpatterns = [
     path('foodpost/', views.CreateFoodView.as_view(), name='foodpost'),
     path('fooddone/', views.FoodDoneView.as_view(), name='fooddone'),
     path('fooddetail/<int:pk>/', views.FoodDetailView.as_view(), name='fooddetail'),
+    path('addfavorite/', views.add_favorite, name='addfavorite'),
+    path('foodfavorite/', views.FoodFavoriteView.as_view(), name='foodfavorite'),
+    path('foodfavoritedelete/', views.delete_favorite, name='foodfavorite_delete'),
+    path('myfood/', views.MyFoodView.as_view(), name='myfood'),
+    path('search_for_genre/', views.search_for_genre, name='search_for_genre'),
 ]

@@ -1,0 +1,49 @@
+{% extends 'mypagebase.html' %}
+{% load static %}
+{% block title %}Seed - Food rescue{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="title" style="background-color: #ad6500; color:white;">Food rescue - Favorite</h1>
+    <hr>
+    {% if request.user.is_general %}
+        {% if favorite_list %}
+            <div class="text-start" style="margin-bottom:20px;">
+                <a href="{% url 'seed:food_rescue' %}" class="btn btn-light" style="background-color: #ad6500; color:white;">戻る</a>
+            </div>
+        {% else %}
+            <div class="text-start" style="margin-bottom:20px;">
+                <a href="{% url 'seed:food_rescue' %}" class="btn btn-light" style="background-color: #ad6500; color:white;">戻る</a>
+            </div>
+        {% endif %}
+    <div class="row" style="height: 650px; width:100%; overflow-y: scroll;">
+        {% if favorite_list %}
+            {% for favorite in favorite_list %}
+            <div class="col-3" style="margin-top:10px;">
+                <div class="card" style="width: 100%;">
+                    <img src="{{favorite.product.image.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{favorite.product.name}}</h5>
+                        <p class="card-text">
+                            {{favorite.product.company.username}}
+                        </p>
+                        <p class="card-text" style="color:gray; font-size:smaller;">
+                            <span class="text-start">価格 : </span><span
+                                class="text-end">¥{{favorite.product.price}}</span><br>
+                            <span class="text-start">投稿日 : </span><span
+                                class="text-end">{{favorite.product.create_at|date:"Y/m/d"}}</span>
+                        </p>
+                        <a href="{% url 'seed:fooddetail' favorite.product.pk %}" class="btn btn-light" style="background-color:#ad6500; color:white;">詳細</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h3 class="text-center">お気に入り登録されている商品はありません。</h3>
+        {% endif %}
+    </div>
+    {% else %}
+        <h1>一般ユーザ用ページです。</h1>
+        <a class="btn btn-light" href="{% url 'seed:mypage' %}" style="background-color:#ad6500; color:white;">マイページトップへ</a>
+    {% endif %}
+</div>
+{% endblock %}

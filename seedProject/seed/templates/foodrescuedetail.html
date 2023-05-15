@@ -6,19 +6,27 @@
     <h1 class="title" style="background-color: #ad6500; color:white;">Food rescue - Detail</h1>
     <hr>
     <div class="text-start">
-        <a href="{% url 'seed:food_rescue' %}" class="btn btn-light" style="background-color:#ad6500; color:white;">Food rescue一覧に戻る</a>
+        {% if request.GET.source %}
+            <a href="{% url 'seed:food_rescue' %}" class="btn btn-light" style="background-color:#ad6500; color:white;">戻る</a>
+        {% elif request.GET.posted %}
+            <a href="{% url 'seed:myfood' %}" class="btn btn-light" style="background-color:#ad6500; color:white;">戻る</a>
+        {% else %}
+            <a href="{% url 'seed:foodfavorite' %}" class="btn btn-light" style="background-color:#ad6500; color:white;">戻る</a>
+        {% endif %}
     </div>
     <br>
     <br>
     <br>
-    <br>
-    <br>
+
     <div class="row" style="height: 500px; width:100%; overflow-y: scroll;">
         <div class="col">
+            <br>
+            <br>
             <img src="{{object.image.url}}" style="width:400px">
         </div>
         <div class="col">
             <h1>{{object.name}}</h1>
+            <br>
             <table class="foodtable" style="margin:auto;">
                 <tr>
                     <td class="text-start">提供元　 :</td>
@@ -40,7 +48,37 @@
             <br>
             <br>
             {% if request.user.is_general %}
-            <button class="btn btn-danger">お気に入りに登録</button>
+                {% if favorite %}
+                    <form method="POST" action="{% url 'seed:foodfavorite_delete' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{object.pk}}">
+                        {% if request.GET.source %}
+                            <input type="hidden" name="source" value="rescue">
+                        {% else %}
+                            <input type="hidden" name="source" value="favorite">
+                        {% endif %}
+                        <input type="submit" class="btn btn-danger" value="お気に入り解除" style="color:white;">
+                    </form>
+                        {% else %}
+                    <form method="POST" action="{% url 'seed:addfavorite' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{object.pk}}">
+                        {% if request.GET.source %}
+                            <input type="hidden" name="source" value="rescue">
+                        {% else %}
+                            <input type="hidden" name="source" value="favorite">
+                        {% endif %}
+                        <input type="submit" class="btn btn-danger" value="お気に入りに追加" style="color:white;">
+                    </form>
+                {% endif %}
+            {% else %}
+                {% if object.company.id == request.user.id %}
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{object.pk}}">
+                        <input type="submit" class="btn btn-danger" value="削除" style="color:white;">
+                    </form>
+                {% endif %}
             {% endif %}
         </div>
     </div>
