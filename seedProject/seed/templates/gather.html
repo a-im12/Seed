@@ -15,7 +15,11 @@
             {% for gather in gather_list %}
             <div class="col-3" style="margin-top:10px;">
                 <div class="card" style="width: 100%;">
-                    <img src="{% static 'assets/img/mypage/damy.png' %}" class="card-img-top" alt="...">
+                    {% if gather.image %}
+                        <img src="{{gather.image.url}}" class="card-img-top" alt="..." height="150px">
+                    {% else %}
+                        <img src="{% static 'assets/img/mypage/damy.png' %}" class="card-img-top" alt="...">
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{gather.title}}</h5>
                         <p class="card-text">

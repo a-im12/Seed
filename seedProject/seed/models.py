@@ -14,6 +14,7 @@ class Gather(models.Model):
     access = models.CharField(verbose_name="アクセス", max_length=200)
     contact = models.CharField(verbose_name="連絡先", max_length=254)
     detail = models.TextField(verbose_name="詳細", max_length=300)
+    image = models.ImageField(verbose_name="画像", upload_to='gather_img/', null=True)
     create_at = models.DateTimeField(verbose_name="作成日時", auto_now_add=True)
 
 class Mission(models.Model):

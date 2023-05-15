@@ -5,7 +5,7 @@ class GatherPostForm(forms.ModelForm):
 
     class Meta:
         model = Gather
-        fields = ('title', 'prefecture', 'access', 'contact', 'detail')
+        fields = ('title', 'image', 'prefecture', 'access', 'contact', 'detail')
 
 class MissionDetailForm(forms.ModelForm):
 
