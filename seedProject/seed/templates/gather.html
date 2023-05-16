@@ -5,13 +5,29 @@
 <div class="text-center">
     <h1 class="title" style="background: #ffc107; color:white;">Gather</h1>
     <hr>
-    <div class="text-end" style="margin-bottom:20px;">
-        <a class="btn btn-warning" href="{% url 'seed:gatherpost' %}"  style="color:white;">投稿</a>
-        <a class="btn btn-warning" href="{% url 'seed:mygather' %}"  style="color:white;">自分の投稿</a>
+    <div>
+        <div>
+            <form method="POST" action="{% url 'seed:search_for_prefecture' %}">
+                {% csrf_token %}
+                <select name="prefecture">
+                    <option value selected>-----------------</option>
+                    {% for prefecture in prefecture_list %}
+                        <option value={{prefecture.id}}>{{prefecture.name}}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="検索" class="btn btn-warning" style="color:white;">
+            </form>
+        </div>
+        <div class="text-end" style="margin-bottom:20px;">
+            <a class="btn btn-warning" href="{% url 'seed:gatherpost' %}"  style="color:white;">投稿</a>
+            <a class="btn btn-warning" href="{% url 'seed:mygather' %}"  style="color:white;">自分の投稿</a>
+        </div>
     </div>
 
     <div class="container">
         <div class="row" style="height: 650px; width:100%; overflow-y: scroll;">
+            {% if gather_list %}
+            
             {% for gather in gather_list %}
             <div class="col-3" style="margin-top:10px;">
                 <div class="card" style="width: 100%;">
@@ -34,6 +50,9 @@
                 </div>
             </div>
             {% endfor %}
+            {% else %}
+            <h3>投稿がありません</h3>
+            {% endif %}
         </div>
     </div>
 </div>

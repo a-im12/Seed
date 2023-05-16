@@ -29,4 +29,5 @@ urlpatterns = [
     path('point/', views.use_point, name='point'),
     path('pointthankyou/', views.PointThankyouView.as_view(), name='pointthankyou'),
     path('pointexplanetion/', views.PointExplanetionView.as_view(), name='pointexplanetion'),
+    path('search_for_prefecture/', views.search_for_prefecture, name='search_for_prefecture'),
 ]

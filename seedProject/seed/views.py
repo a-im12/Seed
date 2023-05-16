@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect, reverse
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
-from .models import Gather, MissionDetail, Mission, Product, Favorite, Genre
+from .models import Gather, MissionDetail, Mission, Product, Favorite, Genre, Prefecture
 from .forms import GatherPostForm, FoodPostForm
 
 import datetime
@@ -57,6 +57,12 @@ class GatherView(ListView):
     
     def get_queryset(self):
         return Gather.objects.order_by('-create_at')
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        prefecture = Prefecture.objects.all()
+        context['prefecture_list'] = prefecture
+        return context
 
 class GatherDoneView(TemplateView):
     template_name = 'gatherdone.html'
@@ -238,3 +244,19 @@ class PointThankyouView(TemplateView):
 
 class PointExplanetionView(TemplateView):
     template_name = 'point_explanetion.html'
+
+def search_for_prefecture(request):
+    p_id = request.POST.get('prefecture')
+    
+    if p_id == "":
+        return redirect('seed:gather')
+    
+    gather_list = Gather.objects.filter(prefecture_id=p_id)
+    prefecture_list = Prefecture.objects.all()
+    
+    context = {
+        'gather_list':gather_list,
+        'prefecture_list':prefecture_list,
+    }
+    
+    return render(request, 'gather.html', context)

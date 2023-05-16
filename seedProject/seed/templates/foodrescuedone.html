@@ -2,6 +2,32 @@
 {% load static %}
 {% block title %}Seed - Food rescue{% endblock %}
 {% block content %}
-<h1>done</h1>
-<a href="{% url 'seed:food_rescue' %}">Food rescueに戻る</a>
+{% if request.user.is_general %}
+<div class="text-center">
+    <h1 class="title" style="background-color: #ad6500; color:white;">Food rescue - Done</h1>
+    <hr>
+    <br>
+    <br>
+    <br>
+    <h3>
+        企業専用ページです。
+    </h3>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'seed:food_rescue' %}" style="color:#ad6500;">Food rescueに戻る</a>
+{% else %}
+<div clasS="text-center">
+    <h1 class="title" style="background-color: #ad6500; color:white;">Food rescue - Done</h1>
+    <hr>
+    <br>
+    <br>
+    <br>
+    <h3>投稿が完了しました。</h3>
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'seed:food_rescue' %}" style="color:#ad6500;">Food rescueに戻る</a>
+</div>
+{% endif %}
 {% endblock %}

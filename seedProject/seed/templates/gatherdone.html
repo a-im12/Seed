@@ -2,6 +2,17 @@
 {% load static %}
 {% block title %}Seed - Gather{% endblock %}
 {% block content %}
-<h1>done</h1>
-<a href="{% url 'seed:gather' %}">Gather一覧に戻る</a>
+<div class="text-center">
+    <h1 class="title" style="background: #ffc107; color:white;">Gather</h1>
+    <hr>
+    <br>
+    <br>
+    <br>
+    <h3>
+        投稿が完了しました。
+    </h3>
+    <br>
+    <br>
+    <a href="{% url 'seed:gather' %}" style="color:#ffc107;">Gather一覧に戻る</a>
+</div>
 {% endblock %}
