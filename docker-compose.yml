@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: ./container/Python
+      dockerfile: Dockerfile
+    
+    container_name: django
+
+    ports:
+      - "8000:8000"
+    tty: true
+
+    volumes:
+      - ./src/:/root/workspace/
