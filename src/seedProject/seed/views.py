@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect, reverse
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
-from .models import Gather, MissionDetail, Mission, Product, Favorite, Genre, Prefecture
+from .models import Gather, MissionDetail, Mission, Product, Favorite, Genre, Prefecture, Community, CommunityGenre
 from .forms import GatherPostForm, FoodPostForm
 
 import datetime
@@ -31,8 +31,19 @@ class FoodRescueView(ListView):
         context['genre_list'] = genre
         return context
 
-class CommunityView(TemplateView):
+class CommunityView(ListView):
     template_name = 'community.html'
+    model = Community
+    context_object_name = 'community_list'
+    
+    def get_queryset(self):
+        return Community.objects.order_by('-posted_at')
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        genre = CommunityGenre.objects.all()
+        context['genre_list'] = genre
+        return context
 
 class MissionView(TemplateView):
     mission_detail_model = MissionDetail()

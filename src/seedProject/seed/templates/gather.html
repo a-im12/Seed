@@ -42,8 +42,7 @@
                             {{gather.user_id.username}}
                         </p>
                         <p class="card-text" style="color:gray; font-size:smaller;">
-                            <span class="text-start">投稿日 : </span><span
-                                class="text-end">{{gather.create_at|date:"Y/m/d"}}</span>
+                            <span class="text-start">投稿日 : </span><span class="text-end">{{gather.create_at|date:"Y/m/d"}}</span>
                         </p>
                         <a href="{% url 'seed:gather_detail' gather.pk %}" class="btn btn-warning" style="color:white;">詳細</a>
                     </div>

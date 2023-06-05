@@ -44,3 +44,27 @@ class Product(models.Model):
 class Favorite(models.Model):
     product = models.ForeignKey(Product, verbose_name="商品", on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, verbose_name="ユーザー", on_delete=models.CASCADE)
+
+class CommunityGenre(models.Model):
+    name = models.CharField(verbose_name='Community ジャンル', max_length=10)
+    
+    def __str__(self):
+        return self.name
+
+class Community(models.Model):
+    user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.CASCADE)
+    genre = models.ForeignKey(CommunityGenre, verbose_name='Community ジャンル', on_delete=models.CASCADE)
+    title = models.CharField(verbose_name='Community タイトル', max_length=70)
+    posted_at = models.DateTimeField(verbose_name='投稿日時', auto_now_add=True)
+    # best_answer = models.BooleanField(verbose_name='ベストアンサー', default=False)
+
+# class CommunityMessage(models.Model):
+#     user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.CASCADE)
+#     community = models.ForeignKey(Community, verbose_name='Community', on_delete=models.CASCADE)
+#     message = models.CharField(verbose_name='メッセージ', max_length=300, null=False)
+#     posted_at = models.DateTimeField(verbose_name='投稿日時', auto_now_add=True)
+#     best_flg = models.BooleanField(verbose_name='ベストアンサー', default=False)
+
+# class Like(models.Models):
+#     community_message = models.ForeignKey(CommunityMessage, verbose_name='CommunityMessage', on_delete=models.CASCADE)
+#     user = models.ForeignKey(CustomUser, verbose_name='ユーザー', on_delete=models.CASCADE)
