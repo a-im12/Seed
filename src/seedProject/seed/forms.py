@@ -1,5 +1,5 @@
 from django import forms
-from .models import Gather, MissionDetail, Product
+from .models import Gather, MissionDetail, Product, Community
 
 class GatherPostForm(forms.ModelForm):
 
@@ -18,3 +18,9 @@ class FoodPostForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ('name', 'genre', 'price', 'detail', 'image')
+
+class CommunityPostForm(forms.ModelForm):
+
+    class Meta:
+        model = Community
+        fields = ('title', 'genre')

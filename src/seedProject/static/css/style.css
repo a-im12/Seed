@@ -101,3 +101,24 @@
 .foodtable td{
     width: 150px;
 }
+
+.box{
+    margin-top:0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.box .right{
+    position: absolute;
+    right: 140px;
+}
+
+.box .left{
+    position: absolute;
+    left: 430px;
+}
+
+.username{
+    font-size: small;
+    color: gray;
+}

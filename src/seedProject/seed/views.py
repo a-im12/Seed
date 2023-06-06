@@ -4,8 +4,8 @@ from django.shortcuts import render
 from django.shortcuts import redirect, reverse
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
-from .models import Gather, MissionDetail, Mission, Product, Favorite, Genre, Prefecture, Community, CommunityGenre
-from .forms import GatherPostForm, FoodPostForm
+from .models import Gather, MissionDetail, Mission, Product, Favorite, Genre, Prefecture, Community, CommunityGenre, CommunityMessage
+from .forms import GatherPostForm, FoodPostForm, CommunityPostForm
 
 import datetime
 import random
@@ -227,7 +227,6 @@ class FoodDeleteView(DeleteView):
     model = Product
     
     def get_success_url(self):
-        print("今")
         if self.request.GET.get('posted') == 'posted':
             return reverse_lazy('seed:myfood')
         else:
@@ -271,3 +270,55 @@ def search_for_prefecture(request):
     }
     
     return render(request, 'gather.html', context)
+
+class CreateCommunityView(CreateView):
+    form_class = CommunityPostForm
+    template_name = 'communitypost.html'
+    
+    success_url = reverse_lazy('seed:communitydone')
+    
+    def form_valid(self, form):
+        data = form.save(commit=False)
+        data.user = self.request.user
+        data.save()
+        return super().form_valid(form)
+
+class CommunityDoneView(TemplateView):
+    template_name = 'communitydone.html'
+
+class JoinedCommunityView(ListView):
+    template_name = 'communityjoined.html'
+    model = CommunityMessage
+    context_object_name = 'community_list'
+    
+    def get_queryset(self):
+        return CommunityMessage.objects.filter(user=self.request.user)
+        
+
+class MyCommunityView(ListView):
+    template_name = 'mycommunity.html'
+    model = Community
+    context_object_name = 'community_list'
+    
+    def get_queryset(self):
+        return Community.objects.filter(user=self.request.user)
+
+class CommunityDetailView(DetailView):
+    template_name = 'communitydetail.html'
+    model = Community
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        message_list = CommunityMessage.objects.filter(community=self.object).order_by('-posted_at')
+        context['message_list'] = message_list
+        return context
+
+def send_message(request):
+    message = request.POST.get('message')
+    model = CommunityMessage()
+    model.user = request.user
+    model.community = Community.objects.get(id=request.POST.get('community_id'))
+    model.message = message
+    model.save()
+    
+    return redirect('seed:community_detail', pk=request.POST.get('community_id'))

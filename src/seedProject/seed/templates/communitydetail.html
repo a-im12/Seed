@@ -1,0 +1,87 @@
+{% extends 'mypagebase.html' %}
+{% load static %}
+{% block title %}Seed - Gather{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="title" style="background: #0d6efd; color:white;">Community - Board</h1>
+    <hr>
+    <div class="text-center">
+        <p><img src="{{ object.user.profile_pic.url }}" width="64" height="64" class="rounded-circle me-2">
+            {{community.user.username}}
+        </p>
+        <h1 style="margin-bottom:10px;" class="sticky-top">{{object.title}}</h1>
+    </div>
+    <div class="box">
+        <div class="right">
+            <p>投稿日時 : {{object.posted_at}}</p>
+        </div>
+        <div class="left" style="margin-bottom:20px;">
+            <a href="{% url 'seed:community' %}" class="btn btn-primary">戻る</a>
+        </div>
+    </div>
+    <div style="height: 510px; width:100%; overflow-y: scroll; margin-top:100px;">
+        {% if message_list %}
+        
+            {% for message in message_list %}
+            {% if request.user == message.user %}
+            <table width="80%" style="margin:auto;">
+                <tr class="text-end">
+                    <td>
+                        <p><span class="username">{{message.user.username}}</span><br><span
+                                class="message">{{message.message}}</span></p>
+                    </td>
+                    <td width="90px">
+                        <img src="{{ message.user.profile_pic.url }}" width="64" height="64" class="rounded-circle me-2">
+                    </td>
+                </tr>
+            </table>
+            {% else %}
+            <table width="80%" style="margin:auto;">
+                <tr class="text-start">
+                    <td width="90px">
+                        <img src="{{ message.user.profile_pic.url }}" width="64" height="64" class="rounded-circle me-2">
+                    </td>
+                    <td>
+                        <p><span class="username">{{message.user.username}}</span><br><span
+                                class="message">{{message.message}}</span></p>
+                    </td>
+                </tr>
+            </table>
+            {% endif %}
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>チャットなし</p>
+        {% endif %}
+    </div>
+    <div style="width:100%;">
+        <form method="POST" action="{% url 'seed:send_message' %}">
+            {% csrf_token %}
+            <input type="hidden" name="community_id" value={{object.id}}>
+            <input id="message" type="text" name="message" placeholder="メッセージを入力"
+                style="width:70%; border-radius: 5px; border:1px solid #ccc;">&emsp13;<input id="submit_btn"
+                type="submit" value="送信" disabled="true"
+                style="background-color: #ccc; color: white; border-radius: 5px; border:1px solid #ccc;">
+        </form>
+    </div>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+
+        let input_name = document.getElementById("message");
+        let submit_btn = document.getElementById("submit_btn");
+
+        input_name.addEventListener("input", function () {
+            if (this.value.length > 0) {
+                submit_btn.disabled = false;
+                submit_btn.style.backgroundColor = "#0d6efd";
+                submit_btn.style.borderColor = "#0d6efd";
+            } else {
+                submit_btn.disabled = true;
+                submit_btn.style.backgroundColor = "#ccc";
+                submit_btn.style.borderColor = "#ccc";
+            }
+        });
+    });
+</script>
+{% endblock %}

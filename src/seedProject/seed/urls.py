@@ -30,4 +30,10 @@ urlpatterns = [
     path('pointthankyou/', views.PointThankyouView.as_view(), name='pointthankyou'),
     path('pointexplanetion/', views.PointExplanetionView.as_view(), name='pointexplanetion'),
     path('search_for_prefecture/', views.search_for_prefecture, name='search_for_prefecture'),
+    path('communitypost/', views.CreateCommunityView.as_view(), name='communitypost'),
+    path('communitydone/', views.CommunityDoneView.as_view(), name='communitydone'),
+    path('community_joined/', views.JoinedCommunityView.as_view(), name='community_joined'),
+    path('mycommunity/', views.MyCommunityView.as_view(), name='mycommunity'),
+    path('community_detail/<int:pk>/', views.CommunityDetailView.as_view(), name='community_detail'),
+    path('send_message/', views.send_message, name='send_message'),
 ]

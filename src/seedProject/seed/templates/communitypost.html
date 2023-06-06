@@ -1,0 +1,27 @@
+{% extends 'mypagebase.html' %}
+{% load static %}
+{% block title %}Seed - Community{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="title" style="background: #0d6efd; color:white;">Community - Post</h1>
+    <hr>
+    <div class="text-start">
+        <a href="{% url 'seed:community' %}" class="btn btn-primary">戻る</a>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            {% for field in form %}
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+            {{ field }}
+            <br>
+            <br>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary" style="color:white">投稿</button>
+    </form>
+    {% for field, error in form.errors.items %}
+        <div class="error">{{field}}{{ error }}</div>
+    {% endfor %}
+</div>
+{% endblock %}
