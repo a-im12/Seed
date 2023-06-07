@@ -1,4 +1,5 @@
 from typing import Any, Dict
+from django.db.models.query import QuerySet
 from django.http import FileResponse
 from django.shortcuts import render
 from django.shortcuts import redirect, reverse
@@ -290,10 +291,9 @@ class JoinedCommunityView(ListView):
     template_name = 'communityjoined.html'
     model = CommunityMessage
     context_object_name = 'community_list'
-    
+
     def get_queryset(self):
-        return CommunityMessage.objects.filter(user=self.request.user)
-        
+        return CommunityMessage.objects.filter(user=self.request.user).order_by('-posted_at')
 
 class MyCommunityView(ListView):
     template_name = 'mycommunity.html'
@@ -306,7 +306,7 @@ class MyCommunityView(ListView):
 class CommunityDetailView(DetailView):
     template_name = 'communitydetail.html'
     model = Community
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         message_list = CommunityMessage.objects.filter(community=self.object).order_by('-posted_at')
@@ -320,5 +320,5 @@ def send_message(request):
     model.community = Community.objects.get(id=request.POST.get('community_id'))
     model.message = message
     model.save()
-    
+
     return redirect('seed:community_detail', pk=request.POST.get('community_id'))

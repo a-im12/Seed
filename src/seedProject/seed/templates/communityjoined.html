@@ -15,14 +15,22 @@
         <div style="height: 650px; width:100%; overflow-y: scroll;">
             {% if community_list %}
                 {% for community in community_list %}
-                <a href="{% url 'seed:community_detail' community.id %}" style="text-decoration: none; color:black;">
-                <div class="bg-light p-4 rounded" style="height:150px; margin-bottom:20px;">
-                    <p class="text-start">
-                        <img src="{{ community.community.user.profile_pic.url}}" width="64" height="64"
-                        class="rounded-circle me-2"> {{community.community.user.username}}<br>
-                    &emsp;&emsp;&emsp;&emsp;&emsp;<span class="fs-5">{{community.community.title}}</span>
-                    </p>
-                </div>
+                <a href="{% url 'seed:community_detail' community.community.id %}" style="text-decoration: none; color:black;">
+                    <div class="bg-light p-3 rounded" style="height:100px; margin-bottom:20px;">
+                        <table style="margin:auto;">
+                            <tr>
+                                <td  rowspan="2">
+                                    <img src="{{ community.user.profile_pic.url}}" width="64" height="64" class="rounded-circle me-2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100%" class="text-start" style="padding-left:20px">
+                                    {{community.community.user.username}}<br>
+                                    <span class="fs-5">{{community.community.title}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </a>
                 {% endfor %}
             {% else %}
