@@ -28,7 +28,7 @@
                                     <span class="fs-5">{{community.title}}</span>
                                 </td>
                                 <td class="text-end" width="20%">
-                                    <a href="#" class="btn btn-danger">削除</a>
+                                    <a href="{% url 'seed:community_delete' community.pk %}" class="btn btn-danger">削除</a>
                                 </td>
                             </tr>
                         </table>

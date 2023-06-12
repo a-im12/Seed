@@ -287,13 +287,27 @@ class CreateCommunityView(CreateView):
 class CommunityDoneView(TemplateView):
     template_name = 'communitydone.html'
 
+def dis(data_list):
+    distinct_data = []
+    community_title = []
+    for data in data_list:
+        if data.community.title in community_title:
+            continue
+        
+        distinct_data.append(data)
+        community_title.append(data.community.title)
+
+    return distinct_data
+
 class JoinedCommunityView(ListView):
     template_name = 'communityjoined.html'
     model = CommunityMessage
     context_object_name = 'community_list'
 
     def get_queryset(self):
-        return CommunityMessage.objects.filter(user=self.request.user).order_by('-posted_at')
+        data = CommunityMessage.objects.filter(user=self.request.user).order_by('-posted_at')
+        data = dis(data)
+        return data
 
 class MyCommunityView(ListView):
     template_name = 'mycommunity.html'
@@ -322,3 +336,10 @@ def send_message(request):
     model.save()
 
     return redirect('seed:community_detail', pk=request.POST.get('community_id'))
+
+class CommunityDeleteView(DeleteView):
+    template_name = 'communitydelete.html'
+    model = Community
+    
+    def get_success_url(self):
+        return reverse_lazy('seed:mycommunity')
