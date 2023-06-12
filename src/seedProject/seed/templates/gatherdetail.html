@@ -16,7 +16,7 @@
         {% else %}
             <img src="{% static 'assets/img/mypage/damy.png' %}" alt="..." height="150px">
         {% endif %}
-        <table class="detail-table" style="margin:auto; font-size:20px;">
+        <table class="detail-table" style="margin:auto; font-size:20px; width:500px;">
             <tr>
                 <td class="text-start">投稿者 :</td>
                 <td class="text-end">{{object.user_id.username}}</td>
@@ -24,10 +24,6 @@
             <tr>
                 <td class="text-start">実施場所 :</td>
                 <td class="text-end">{{object.access}}</td>
-            </tr>
-            <tr>
-                <td class="text-start">詳細 :</td>
-                <td class="text-end">{{object.detail}}</td>
             </tr>
             <tr>
                 <td class="text-start">投稿者連絡先 :</td>
@@ -38,6 +34,11 @@
                 <td class="text-end">{{object.create_at|date:"Y/m/d"}}</td>
             </tr>
         </table>
+        <br>
+        <br>
+        <div style="width:600px; font-size: 15px; margin: auto;">
+                <p>{{object.detail}}</p>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -36,10 +36,12 @@ class Product(models.Model):
     name = models.CharField(verbose_name="商品名", max_length=50)
     genre = models.ForeignKey(Genre, verbose_name="ジャンル", on_delete=models.CASCADE)
     price = models.IntegerField(verbose_name="価格")
+    deadline = models.DateTimeField(verbose_name="賞味・消費期限")
     image = models.ImageField(verbose_name="商品画像", upload_to='product_img/')
     detail = models.TextField(verbose_name="詳細", max_length=300)
     company = models.ForeignKey(CustomUser, verbose_name="掲載企業", on_delete=models.CASCADE)
     create_at = models.DateTimeField(verbose_name="作成日時", auto_now_add=True)
+    expiration = models.BooleanField(verbose_name="消費期限")
 
 class Favorite(models.Model):
     product = models.ForeignKey(Product, verbose_name="商品", on_delete=models.CASCADE)

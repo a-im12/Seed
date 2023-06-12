@@ -11,6 +11,7 @@
         </p>
         <h1 style="margin-bottom:10px;" class="sticky-top">{{object.title}}</h1>
     </div>
+    <br>
     <div class="box">
         <div class="right">
             <p>投稿日時 : {{object.posted_at}}</p>
@@ -19,7 +20,7 @@
             <a href="{% url 'seed:community' %}" class="btn btn-primary">戻る</a>
         </div>
     </div>
-    <div style="height: 510px; width:100%; overflow-y: scroll; margin-top:100px;">
+    <div style="height: 470px; width:100%; overflow-y: scroll; margin-top:100px;">
         {% if message_list %}
         
             {% for message in message_list %}
@@ -28,7 +29,7 @@
                 <tr class="text-end">
                     <td>
                         <p><span class="username">{{message.user.username}}</span><br><span
-                                class="message">{{message.message}}</span></p>
+                                class="message text-wrap">{{message.message}}</span></p>
                     </td>
                     <td width="90px">
                         <img src="{{ message.user.profile_pic.url }}" width="64" height="64" class="rounded-circle me-2">
@@ -43,7 +44,7 @@
                     </td>
                     <td>
                         <p><span class="username">{{message.user.username}}</span><br><span
-                                class="message">{{message.message}}</span></p>
+                                class="message text-wrap">{{message.message}}</span></p>
                     </td>
                 </tr>
             </table>

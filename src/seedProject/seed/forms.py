@@ -13,11 +13,17 @@ class MissionDetailForm(forms.ModelForm):
         model = MissionDetail
         fields = ('mission', 'draw_time')
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
 class FoodPostForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('name', 'genre', 'price', 'detail', 'image')
+        fields = ('name', 'genre', 'price', 'deadline', 'detail', 'image')
+        widgets = {
+            'deadline': DateInput(),
+        }
 
 class CommunityPostForm(forms.ModelForm):
 

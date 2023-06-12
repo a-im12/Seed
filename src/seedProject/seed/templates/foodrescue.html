@@ -41,8 +41,12 @@
                     <p class="card-text" style="color:gray; font-size:smaller;">
                         <span class="text-start">価格 : </span><span
                             class="text-end">¥{{product.price}}</span><br>
-                        <span class="text-start">投稿日 : </span><span
-                            class="text-end">{{product.create_at|date:"Y/m/d"}}</span>
+                        {% if product.expiration %}
+                            <span class="text-start">消費期限 : </span>
+                        {% else %}
+                            <span class="text-start">消味期限 : </span>
+                        {% endif %}
+                        <span class="text-end">{{product.create_at|date:"Y/m/d"}}</span>
                     </p>
                     <a href="{% url 'seed:fooddetail' product.pk %}?source=rescue" class="btn btn-light" style="background-color:#ad6500; color:white;">詳細</a>
                 </div>

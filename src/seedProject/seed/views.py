@@ -145,6 +145,11 @@ class CreateFoodView(CreateView):
     def form_valid(self, form):
         data = form.save(commit=False)
         data.company = self.request.user
+        is_expiration = self.request.POST.get('expiration')
+        if is_expiration == 'yes':
+            data.expiration = True
+        else:
+            data.expiration = False
         data.save()
         return super().form_valid(form)
 

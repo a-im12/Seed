@@ -27,7 +27,7 @@
         <div class="col">
             <h1>{{object.name}}</h1>
             <br>
-            <table class="foodtable" style="margin:auto;">
+            <table class="foodtable" style="margin:auto; width:600px;">
                 <tr>
                     <td class="text-start">提供元　 :</td>
                     <td class="text-end text-break">{{object.company.username}}</td>
@@ -38,11 +38,15 @@
                 </tr>
                 <tr>
                     <td class="text-start">商品詳細 :</td>
-                    <td class="text-end text-break">{{object.detail}}</td>
+                    <td class="text-start text-break">{{object.detail}}</td>
                 </tr>
                 <tr>
-                    <td class="text-start">投稿日　 :</td>
-                    <td class="text-end">{{object.create_at|date:"Y/m/d"}}</td>
+                    {% if object.expiration %}
+                    <td class="text-start">消費期限  :</td>
+                    {% else %}
+                    <td class="text-start">賞味期限  :</td>
+                    {% endif %}
+                    <td class="text-end">{{object.deadline|date:"Y/m/d"}}</td>
                 </tr>
             </table>
             <br>
