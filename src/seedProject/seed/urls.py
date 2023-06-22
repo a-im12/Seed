@@ -37,4 +37,5 @@ urlpatterns = [
     path('community_detail/<int:pk>/', views.CommunityDetailView.as_view(), name='community_detail'),
     path('send_message/', views.send_message, name='send_message'),
     path('mycommunity/<int:pk>/delete/', views.CommunityDeleteView.as_view(), name='community_delete'),
+    path('search_for_community_genre/', views.search_for_community_genre, name='search_for_community_genre'),
 ]

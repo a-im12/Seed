@@ -348,3 +348,19 @@ class CommunityDeleteView(DeleteView):
     
     def get_success_url(self):
         return reverse_lazy('seed:mycommunity')
+
+def search_for_community_genre(request):
+    id = request.POST.get('genre')
+    
+    if id == "":
+        return redirect('seed:community')
+    
+    community_model = Community.objects.filter(genre_id=id)
+    community_genre_model = CommunityGenre.objects.all()
+    
+    context = {
+        'community_list':community_model,
+        'genre_list':community_genre_model,
+        }
+    
+    return render(request, 'community.html', context)

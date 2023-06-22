@@ -7,12 +7,12 @@
     <hr>
     <div>
         <div>
-            <form method="POST">
+            <form method="POST" action="{% url 'seed:search_for_community_genre' %}">
                 {% csrf_token %}
                 <select name="genre">
                     <option value selected>-----------------</option>
                     {% for genre in genre_list %}
-                        <option value={{prefecture.id}}>{{genre.name}}</option>
+                        <option value={{genre.id}}>{{genre.name}}</option>
                     {% endfor %}
                 </select>
                 <input type="submit" value="検索" class="btn btn-primary">
