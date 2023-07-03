@@ -38,4 +38,10 @@ urlpatterns = [
     path('send_message/', views.send_message, name='send_message'),
     path('mycommunity/<int:pk>/delete/', views.CommunityDeleteView.as_view(), name='community_delete'),
     path('search_for_community_genre/', views.search_for_community_genre, name='search_for_community_genre'),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
+    path('namechange/', views.NameChangeView.as_view(), name='namechange'),
+    path('change_name/', views.change_name, name='change_name'),
+    path('profile_pic_change', views.ImageChangeView.as_view(), name='profile_pic_change'),
+    path('change_pic/', views.change_pic, name='change_pic'),
+    path('storedetail/<int:pk>/', views.StoreDetailView.as_view(), name='storedetail'),
 ]

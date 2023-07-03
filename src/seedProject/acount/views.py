@@ -28,10 +28,13 @@ class CompanySignupView(CreateView):
     
     success_url = reverse_lazy('acount:signup_success')
     
+    
     def form_valid(self, form):
+        address = self.request.POST.get('address')
         user = form.save(commit=False)
         user.is_general = False
         user.is_active = False
+        user.address = address
         user.save()
         return super().form_valid(form)
 

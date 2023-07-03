@@ -1,0 +1,53 @@
+{% extends 'mypagebase.html' %}
+{% load static %}
+{% block title %}Seed - Profile{% endblock %}
+{% block content %}
+<div class="mt-5">
+    <div class="text-center">
+        <br>
+        <br>
+        <img src="{{ object.profile_pic.url }}" class="mx-auto rounded-circle me-2" alt="seed" width="100" height="100">
+        <h3>{{ object.username }}</h3>
+        <br>
+    </div>
+    <div>
+        <table style="margin:auto; color:gray;">
+            <tr>
+                <td class="text-start">住所 : </td>
+                <td class="text-end">{{object.address}}</td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <h3 class="text-center">投稿している商品</h3>
+    <br>
+    <div class="row text-center" style="height: 400px; width:100%; overflow-y: scroll;">
+        {% for product in posted_list %}
+        <div class="col-3" style="margin-top:10px;">
+            <div class="card" style="width: 100%;">
+                <img src="{{product.image.url}}" class="card-img-top" alt="..." style="height:150px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <p class="card-text">
+                        {{product.company.username}}
+                    </p>
+                    <p class="card-text" style="color:gray; font-size:smaller;">
+                        <span class="text-start">価格 : </span><span
+                            class="text-end">¥{{product.price}}</span><br>
+                        {% if product.expiration %}
+                            <span class="text-start">消費期限 : </span>
+                        {% else %}
+                            <span class="text-start">消味期限 : </span>
+                        {% endif %}
+                        <span class="text-end">{{product.create_at|date:"Y/m/d"}}</span>
+                    </p>
+                    <a href="{% url 'seed:fooddetail' product.pk %}?source=rescue" class="btn btn-light" style="background-color:#ad6500; color:white;">詳細</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <br>
+</div>
+{% endblock %}

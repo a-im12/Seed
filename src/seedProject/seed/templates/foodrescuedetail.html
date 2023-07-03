@@ -30,11 +30,11 @@
             <table class="foodtable" style="margin:auto; width:600px;">
                 <tr>
                     <td class="text-start">提供元　 :</td>
-                    <td class="text-end text-break">{{object.company.username}}</td>
+                    <td class="text-end text-break"><a href="{% url 'seed:storedetail' object.company.id %}" style="color:black;">{{object.company.username}}</a></td>
                 </tr>
                 <tr>
                     <td class="text-start">価格　　 :</td>
-                    <td class="text-end text-break">¥ {{object.price}}</td>
+                    <td class="text-end text-break">¥ {{object.price}}<br><span style="color:gray; font-size:15px;">(-{{difference}})</span></td>
                 </tr>
                 <tr>
                     <td class="text-start">商品詳細 :</td>

@@ -20,7 +20,7 @@ class FoodPostForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ('name', 'genre', 'price', 'deadline', 'detail', 'image')
+        fields = ('name', 'genre', 'default_price', 'price', 'deadline', 'detail', 'image')
         widgets = {
             'deadline': DateInput(),
         }

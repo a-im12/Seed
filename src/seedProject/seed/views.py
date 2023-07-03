@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect, reverse
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
-from .models import Gather, MissionDetail, Mission, Product, Favorite, Genre, Prefecture, Community, CommunityGenre, CommunityMessage
+from .models import CustomUser, Gather, MissionDetail, Mission, Product, Favorite, Genre, Prefecture, Community, CommunityGenre, CommunityMessage
 from .forms import GatherPostForm, FoodPostForm, CommunityPostForm
 
 import datetime
@@ -159,10 +159,12 @@ class FoodDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        difference = self.object.default_price - self.object.price
         
         favorite_list = Favorite.objects.filter(user=self.request.user, product=self.object)
         if favorite_list:
             context['favorite'] = favorite_list
+        context['difference'] = difference
         
         return context
 
@@ -243,14 +245,14 @@ def download_mission_qr(request):
     
     print(point)
     
-    img = qrcode.make('http://127.0.0.1:8000/point/')
+    img = qrcode.make(f'http://127.0.0.1:8000/point/?id={request.user.id}')
     img.save("qr.png")
     
     return FileResponse(open("qr.png", 'rb'), as_attachment=True, filename='qr.png')
 
 def use_point(request):
-    user_model = request.user
-    user_model.mission_point -= user_model.mission_point
+    user_model = CustomUser.objects.get(id=request.GET.get('id'))
+    user_model.mission_point = 0
     user_model.save()
     
     return redirect('seed:pointthankyou')
@@ -364,3 +366,47 @@ def search_for_community_genre(request):
         }
     
     return render(request, 'community.html', context)
+
+class ProfileView(TemplateView):
+    template_name = 'profile.html'
+
+class NameChangeView(TemplateView):
+    template_name = 'namechange.html'
+
+def change_name(request):
+    name = request.POST.get('newname')
+    user_model = CustomUser.objects.get(id=request.user.id)
+    user_model.username = name
+    user_model.save()
+    
+    return redirect('seed:profile')
+
+class ImageChangeView(TemplateView):
+    template_name = 'profilepicchange.html'
+
+def change_pic(request):
+    pic = request.FILES['newimg']
+    print(pic)
+    if not(pic is None):
+        user_model = CustomUser.objects.get(id=request.user.id)
+        user_model.profile_pic = pic
+        user_model.save()
+    
+    return redirect('seed:profile')
+
+def delete_user(request):
+    user_model = CustomUser.objects.get(id=request.user.id)
+    user_model.delete()
+    
+    return redirect('top:index')
+
+class StoreDetailView(DetailView):
+    template_name = 'storedetail.html'
+    model = CustomUser
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        
+        posted_list = Product.objects.filter(company=self.object).order_by('-create_at')
+        context['posted_list'] = posted_list
+        return context
