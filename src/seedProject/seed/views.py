@@ -376,6 +376,11 @@ class NameChangeView(TemplateView):
 def change_name(request):
     name = request.POST.get('newname')
     user_model = CustomUser.objects.get(id=request.user.id)
+    exists_user = CustomUser.objects.filter(username=name)
+    if exists_user:
+        print("aaa")
+        return render(request, 'namechange.html', {'error':'その名前は既に使われています。'})
+    
     user_model.username = name
     user_model.save()
     

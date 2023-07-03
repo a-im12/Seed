@@ -12,6 +12,8 @@
         {% csrf_token %}
         <input type="text"  class="form-control" name="newname" placeholder="{{request.user.username}}" style="width:500px; margin:auto;">
         <br>
+        <p style="color:red; font-size: 15px;">{{error}}</p>
+        <br>
         <br>
         <input type="submit" class="btn btn-success" value="変更">
     </form>
